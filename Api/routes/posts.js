@@ -1,12 +1,11 @@
 'use strict'
-const express = require('express')
+const express = require('express');
+const { addPost } = require( '../controllers/postController' );
 
 const router = express.Router()
 
 
-router.get('/', (req, res) => {
-  res.json('GET request to the homepage')
-})
+router.get('/', addPost)
 
 // app.post('/', function (req, res) {
 //   res.send('POST request to the homepage')
