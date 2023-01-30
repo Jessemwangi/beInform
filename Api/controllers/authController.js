@@ -40,9 +40,9 @@ const regUser = (req, res) => {
 const login = (req, res) => {
   const q = "select * from users where username = ?";
 
-  const params = [req.body.email, req.body.username];
+  const params = [req.body.username];
 
-  db.query(q,params, (err,data) =>{
+  db.query(q,[params], (err,data) =>{
     if (err) return res.status(500).json(err)
     if (data.length === 0) return res.status(404).json('user nao found');
 
@@ -50,7 +50,12 @@ const login = (req, res) => {
     const isValidPassword = bcrypt.compareSync(req.body.password, data[0].password);
     if (!isValidPassword) return res.status(400).json('wrong username or password');
 const token = jwt.sign({id:data[0].id},"s3cr3t");
-res.cookie
+const {password,...other} = data[0];
+  
+res.cookie("access_token",token,{
+    httpOnly:true,
+
+}).status(200).json(other)
 
 
   })

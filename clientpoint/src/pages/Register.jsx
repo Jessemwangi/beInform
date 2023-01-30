@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 const Register = () => {
@@ -11,7 +11,7 @@ const Register = () => {
     }
     const [inputs,SetInputs] = useState(initial)
     const [err,setErr] =useState(null)
-    const navigate = Navigate();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         

@@ -1,12 +1,12 @@
 'use strict'
 const {port,host} = require('./serverConfig.json')
 const express = require('express')
-const cookie = require('cookie-parser')
+const cookieparser = require('cookie-parser')
 
 const app = express()
 
 app.use(express.json())
-app.use(cookie())
+app.use(cookieparser())
 
 const postRoutes = require('./routes/posts')
 const userRoutes = require('./routes/users')
