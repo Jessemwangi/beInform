@@ -1,5 +1,6 @@
 'use strict'
-import mysql from 'mysql'
-import { dbConfigs } from './dbConfig'
+const mysql = require('mysql')
+const dbConfigs =require('./dbConfig.json')
 
-export const db = mysql.createConnection(dbConfigs)
+ const db =  mysql.createConnection(dbConfigs)
+ module.exports = db

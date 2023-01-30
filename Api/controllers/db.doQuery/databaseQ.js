@@ -1,42 +1,29 @@
-'use strict';
+"use strict";
 
-const { db } = require( "../../db/dbconnect" );
+const { db } = require("../../db/dbconnect");
 
-const doQuery = async (sql,parameters) => {
-
-   
-        return new Promise(async (resolve,reject)=>{
-         
-            try{
-                let queryResult = await db.query(sql,parameters);
-                if(typeof queryResult === 'undefined'){
-                    reject('QueryError');
-                }
-                else if(typeof queryResult.affectedRows==='undefined'){
-                    delete queryResult.meta;
-                    resolve({queryResult,resultSet:true})
-                }
-                else{
-                    resolve({
-                        queryResult:{
-                            rowsChanged: queryResult.affectedRows,
-                            insertId: queryResult.insertId, 
-                            status: queryResult.warningStatus
-                        },
-                        resultSet:false
-                    });
-                }
+const doQuery = async (sql, parameters) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      db.query(sql, parameters, (err, data) => {
+        console.log(data);
+        if (!err){
+            if (!data.length) {
+              reject("QueryError");
+            } else { 
+              resolve({ data, resultSet: true });
             }
-            catch(err){
-                reject('SQL-error: '+err);
-            }
-            finally{
-                if(connection) connection.end();
-            }
-        });
-    
+        }
+        else{
+            reject("QueryError" + err);
+        }
+      });
+    } catch (err) {
+      reject("SQL-error: " + err);
+    } finally {
+      if (db) db.end();
     }
+  });
+};
 
-    module.exports = {doQuery}
-
-
+module.exports = { doQuery };
