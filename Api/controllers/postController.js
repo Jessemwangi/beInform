@@ -21,9 +21,10 @@ try {
 
 const getPosts = (req,res) =>{
    const q = req.query.cat ? 
-   "select * from posts p join category c on p.CatID = c.catId where p.id = ? order by p.id Desc"
+   "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc"
     : 
-     "select * from posts p join category c on p.CatID = c.catId order by p.id Desc"
+    "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc"
+
 
      db.query(q,req.query.cat, (err,data) =>{
         if (err) return res.status(500).json(err);
@@ -32,8 +33,14 @@ const getPosts = (req,res) =>{
 
     }
 const getPost = (req,res) =>{
-    res.json('GET request to the homepage')
+    const q =  "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = ? order by p.id Desc"
+    db.query(q,req.params.id, (err,data) =>{
+        if (err) return res.status(500).json(err);
+        if (data.length) return res.status(200).json(data[0]);
+     })
+    
 }
+
 const deletePost = (req,res) =>{
     res.json('GET request to the homepage')
 }
