@@ -10,7 +10,7 @@ router.get('/:id', getPost)
 router.post('/', addPost)
 router.delete('/:id', deletePost)
 router.put('/:id', putPost)
-router.update('/:id', updatePost)
+// router.update('/:id', updatePost)
 
 // app.post('/', function (req, res) {
 //   res.send('POST request to the homepage')

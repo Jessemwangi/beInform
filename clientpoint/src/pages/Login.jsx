@@ -9,12 +9,13 @@ const Login = () => {
         username:''
         ,password:'',
     }
+
     const [inputs,SetInputs] = useState(initial)
     const [err,setErr] =useState(null)
     const navigate = useNavigate();
 
-    const {currentUser,login} = useContext(AuthContext)
-    console.log(currentUser);
+    const {login} = useContext(AuthContext)
+   
 
     const handleChange = (e) => {
         

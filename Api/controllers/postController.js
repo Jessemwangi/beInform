@@ -3,11 +3,20 @@
 const db = require('../db/dbconnect')
 
  const addPost = (req,res) =>{
-    const q = 'select * from posts'
-db.query(q,(err,data) =>{
 
-})
-    res.json('GET request to the homepage')
+try {
+	const params = [req.body.title,req.body.description,req.body.image,req.body.uid,req.body.CatID];
+	  
+	    const q = 'insert into posts (`title`,`description`,`image`,`uid`,`CatID`) VALUES (?)'
+	db.query(q,[params] ,(err,data) => {
+	if(err) return res.json(err)
+	return res.status(200).json("transacted successful")
+	})
+} catch (error) {
+	console.log(error);
+    res.json(error);
+}
+    
 }
 
 const getPosts = (req,res) =>{
