@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import axios from 'axios'
+import axios from 'axios';
+import moment from 'moment';
+
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -33,12 +35,12 @@ getPosts();
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-              <img src={post.image} alt={post.titles} />
+              <img src={post?.image} alt={post.titles} />
             </div>
             <div className="content">
                 <Link to={`/post/${post.id}`}
                 className="link ">
-<h1>{post.title}</h1><small>{post.datecreated }</small>
+<h1>{post.title}</h1><small>{moment(post.datecreated).fromNow() }</small>
                 </Link>
 <p>{ `${post.description.substring(0, 300)} ...`  }</p>
 <button>Read more</button>

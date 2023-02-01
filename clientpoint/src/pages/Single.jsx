@@ -4,11 +4,16 @@ import { FiEdit } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
 import Menu from "../Component/Menu";
 import  axios  from "axios";
+import moment from 'moment';
+import { useContext } from "react";
+import { AuthContext } from '../context/authContext';
 
 const Single = () => {
   const [post, setPost] = useState({});
   const location = useLocation() // location will have a path so use split to remove it
   // /post/1?cat = food
+
+  const {currentUser} = useContext(AuthContext)
 
   const postId = location.pathname.split('/')[2]  //locahost:.../posts/2?cat=cat
   useEffect(() =>{
@@ -39,7 +44,7 @@ const Single = () => {
           />
           <div className="info">
             <span>{post.username}</span>
-            <p>posted two days ago</p>
+            <p>posted {moment(post.datecreated).fromNow()}</p>
           </div>
           <div className="edit">
             <Link to={`/write?edit=2`}>
