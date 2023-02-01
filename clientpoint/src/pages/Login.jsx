@@ -20,7 +20,7 @@ const Login = () => {
     const handleChange = (e) => {
         
         SetInputs(prev => ({...prev, [e.target.name]:e.target.value}))
-        console.log(inputs);
+        // console.log(inputs);
     }
 
 
@@ -30,7 +30,7 @@ const Login = () => {
 	  const res = await  axios.post('/auth/login',inputs)
 await login(inputs);
       navigate('/');
-	  console.log(res.data);
+	//   console.log(res.data);
 
 } catch (error) {
 	console.log(error);

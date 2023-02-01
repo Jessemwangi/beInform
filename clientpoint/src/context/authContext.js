@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) =>{
     const [currentUser,serCurrentUser] = useState(
-        JSON.parse(localStorage.getItem("user") || null)
+        JSON.parse(sessionStorage.getItem("user") || null)
     );
 
     const login = async (inputs)=> {
@@ -21,7 +21,7 @@ export const AuthContextProvider = ({children}) =>{
     };
 
     useEffect(() => {
-        localStorage.setItem("user", JSON.stringify(currentUser));
+        sessionStorage.setItem("user", JSON.stringify(currentUser));
     },[currentUser])
 
     return<AuthContext.Provider value={{currentUser,login,logout}} >
