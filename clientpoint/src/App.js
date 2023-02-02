@@ -9,6 +9,7 @@ import Single from './pages/Single';
 import Login from './pages/Login';
 import Navbar from './Component/Navbar';
 import Footer from './Component/Footer';
+import NotFound from './pages/NotFound';
 
 
 const Layout = () =>{
@@ -26,16 +27,18 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />}></Route>
       <Route path="/register" element={<Register />}>
-        New Recipe
+        New 
       </Route>
       <Route path="/write" element={<Write/>}></Route>
       <Route path="/post/:id" element={<Single />}>
-        View Recipes
+        View post
       </Route>
       <Route path="/login" element={<Login/>}>
-        View Recipe
+        View login
       </Route>
-
+      <Route path="*" element={<NotFound/>}>
+        View login
+      </Route>
     </Route>
   )
 );
