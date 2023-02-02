@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../db/dbconnect')
-
+const jwt = require('jsonwebtoken')
  const addPost = (req,res) =>{
 
 try {
@@ -9,7 +9,7 @@ try {
 	  
 	    const q = 'insert into posts (`title`,`description`,`image`,`uid`,`CatID`) VALUES (?)'
 	db.query(q,[params] ,(err,data) => {
-	if(err) return res.json(err)
+	if(err) return res.status(500).json(err)
 	return res.status(200).json("transacted successful")
 	})
 } catch (error) {
@@ -42,7 +42,18 @@ const getPost = (req,res) =>{
 }
 
 const deletePost = (req,res) =>{
-    res.json('GET request to the homepage')
+    const token =req.cookies.access_token
+    if (!token) return res.status(401).json('Not Authenticated!');
+
+    jwt.verify(token,'jwtkey', (err, userInfo) =>{
+        if (err) return res.status(403).json('Token Not Valid!')
+    
+    const q = 'delete from posts where id = ? and uid = ?';
+    db.query(q,[req.params.id,userInfo.id], (err, data) => {
+        if(err) return res.status(403).json('You can delete only you post!');
+        res.status(200).json('Post Deleted!');
+    })
+    })
 }
 const putPost = (req,res) =>{
     res.json('GET request to the homepage')

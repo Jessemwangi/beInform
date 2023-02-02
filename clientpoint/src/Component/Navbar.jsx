@@ -36,9 +36,17 @@ const Navbar = () => {
                     <span>{currentUser?.usename} </span>
                     
                         {currentUser ? 
-                        <span onClick={logout}>logout</span> 
+                      (
+
+                          <span onClick={logout}>logout</span> 
+                      )  
                         :
-                        <Link className='link ' to='./login'></Link>}
+                        (
+
+                            <Link className='link ' to='./login'>
+
+                            </Link>
+                        )}
                     <span className='write'>
                         <Link className='link' to="/write">write
                         </Link>
