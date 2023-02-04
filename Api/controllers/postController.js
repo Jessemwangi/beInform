@@ -2,6 +2,8 @@
 
 const db = require('../db/dbconnect')
 const jwt = require('jsonwebtoken')
+
+
  const addPost = (req,res) =>{
 
 try {

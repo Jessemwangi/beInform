@@ -23,6 +23,7 @@ const Single = () => {
     try {
         const res = await axios.get(`/posts/${postId}`);
         setPost(res.data);
+     
     } catch (error) {
       console.log(error)
     }
@@ -43,6 +44,7 @@ const Single = () => {
 
   return (
     <div className="single">
+      
       <div className="content">
         <img
           src={post?.image}
@@ -75,7 +77,7 @@ const Single = () => {
         <h1>{post.title} </h1>
       {post.description} 
       </div>
-     <Menu/>
+     <Menu catName={post.category}/>
     </div>
   );
 };

@@ -1,10 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import logo from '../Assets/Logo.png'
 import { AuthContext } from '../context/authContext';
+import axios from 'axios';
 const Navbar = () => {
 
     const {currentUser,logout} = useContext(AuthContext)
+
+    const [categories, setCategories] = useState([]);
+    useEffect(() =>{
+         const getPosts = async () => {
+         
+         try {
+             const res = await axios.get(`/cat/all`);
+             setCategories(res.data);
+         } catch (error) {
+           console.log(error)
+         }
+         }
+         getPosts();
+           },[])
 
     return (
         <div className='navbar'> 
@@ -15,24 +30,15 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="links">
-                    <Link className='link' to="/?cat=art" >
-                        <h6>ART</h6>
+                {
+
+categories.map(cat => 
+                    <Link className='link' to={`/?cat=${cat.name}`} key={cat.catid}>
+                        <h6>{cat.name}</h6>
                     </Link>
-                    <Link className='link' to="/?cat=science" >
-                        <h6>Science</h6>
-                    </Link>
-                    <Link className='link' to="/?cat=design" >
-                        <h6>DESIGN</h6>
-                    </Link>
-                    <Link className='link' to="/?cat=food" >
-                        <h6>FOOD</h6>
-                    </Link>
-                    <Link className='link' to="/?cat=technology" >
-                        <h6>TECHNOLOGY</h6>
-                    </Link>
-                    <Link className='link' to="/?cat=cinema" >
-                        <h6>CINEMA</h6>
-                    </Link>
+    )
+                }
+                   
                     <span>{currentUser?.usename} </span>
                     
                         {currentUser ? 
