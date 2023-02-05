@@ -3,6 +3,54 @@
 const db = require('../db/dbconnect')
 const jwt = require('jsonwebtoken')
 
+const  getPosts = (req,res) => {
+console.log('hapa')
+try {
+	const cat = req.query.cat 
+	let q='';
+	cat ? q = 'select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc'
+	:
+	q ='select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc'
+	    db.query(q,cat, (err,data) =>{
+            if (data.length) { res.status(200).json(data)}
+            else  { res.status(500).json(err)}
+	
+	    })
+} catch (error) {
+	res.status(500).json(error);
+}
+}
+
+
+// const dummyget = (req,res) =>{
+//     console.log('hapa')
+//     const q = 'select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc'
+//     db.query(q,'food', (err,data) =>{
+//         res.status(200).json(data)
+
+//     })
+// //     console.log('hapa',req.query.cat )
+// //  try {
+// //     console.log(req.query)
+//     // const cat = req.query.cat
+//     // let q='';
+// //       if (cat) {
+// // q = "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc"
+// //       }
+// //         else{
+// // q = "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc"
+// //         } 
+    
+    
+// //          db.query(q,req.query.cat, (err,data) =>{
+            // if (data.length) {return res.status(200).json(data)}
+            //  else  {return res.status(500).json(err)}
+// //          })
+// // } catch (error) {
+// //     res.status(500).json(error);
+// // }
+
+//     }
 
  const addPost = (req,res) =>{
 
@@ -21,19 +69,7 @@ try {
     
 }
 
-const getPosts = (req,res) =>{
-   const q = req.query.cat ? 
-   "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc"
-    : 
-    "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc"
 
-
-     db.query(q,req.query.cat, (err,data) =>{
-        if (err) return res.status(500).json(err);
-        if (data.length) return res.status(200).json(data);
-     })
-
-    }
 const getPost = (req,res) =>{
     const q =  "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = ? order by p.id Desc"
     db.query(q,req.params.id, (err,data) =>{

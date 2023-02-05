@@ -12,7 +12,7 @@ const Single = () => {
   const [post, setPost] = useState({});
   const location = useLocation() // location will have a path so use split to remove it
   // /post/1?cat = food
-
+console.log(location);
   const navigate = useNavigate()
   const {currentUser} = useContext(AuthContext)
 

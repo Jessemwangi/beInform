@@ -11,6 +11,23 @@ const Write = () => {
   const [image, setImage] = useState("");
 
   const [categories, setCategories] = useState([]);
+
+  const uploadPostImage  = async () =>{
+  try {
+    const formData = new FormData()
+    formData.append("file", image)
+    const {data} = await axios.post('/upload/posts/images',formData)
+    return data
+    
+  } catch (error) {
+    console.log(error)
+    return (null)
+  }
+  }
+
+
+
+
   useEffect(() => {
     const getPosts = async () => {
       try {
@@ -25,6 +42,7 @@ const Write = () => {
 
   const handleSubmit = (e) =>{
 e.preventDefault()
+const imageurl = uploadPostImage(); 
 
   }
   console.log(value);
@@ -47,7 +65,7 @@ e.preventDefault()
       </div>
       <div className="menu">
         <div className="item">
-          <h1>Publish</h1>
+          <h1 onClick={uploadPostImage}>Publish</h1>
           <span>
             <b>Status</b>Draft
           </span>

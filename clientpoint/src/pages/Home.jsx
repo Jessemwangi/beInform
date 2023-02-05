@@ -10,24 +10,27 @@ const Home = () => {
   // const location = useLocation()
   // // console.log(location.search);
   const cat = useLocation().search
-  const [isLoading,setIsLoading] = useState(false);
-  const [error, setError] =useState(null);
+  const [isLoading,setIsLoading] = useState(true);
+  // const [error, setError] =useState(null);
 
 
   useEffect(() =>{
 const getPosts = async () => {
 
 try {
-	  const res = await axios.get(`/posts${cat}`);
+  setIsLoading(true)
+	  const res = await axios.get(`/posts/all${cat}`);
     setPosts(res.data);
-    // console.log(res.data);
+  console.log(res);
+  setIsLoading(false)
 } catch (error) {
 	console.log(error)
+  setIsLoading(true)
 }
 }
 getPosts();
   },[cat])
- 
+ console.log(isLoading)
   
   return (
     <div className="home">
