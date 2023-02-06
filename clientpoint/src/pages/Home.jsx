@@ -3,16 +3,13 @@ import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from 'axios';
 import moment from 'moment';
+import convertToHtml from "../Functions/functions";
 
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  // const location = useLocation()
-  // // console.log(location.search);
   const cat = useLocation().search
   const [isLoading,setIsLoading] = useState(true);
-  // const [error, setError] =useState(null);
-
 
   useEffect(() =>{
 const getPosts = async () => {
@@ -30,7 +27,10 @@ try {
 }
 getPosts();
   },[cat])
+  
  console.log(isLoading)
+
+
   
   return (
     <div className="home">
@@ -38,14 +38,14 @@ getPosts();
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-              <img src={post?.image} alt={post.titles} />
+              <img src={`../posts/images/${post?.image}`} alt={post.titles} />
             </div>
             <div className="content">
                 <Link to={`/post/${post.id}`}
                 className="link ">
 <h1>{post.title}</h1><small>{moment(post.datecreated).fromNow() }</small>
                 </Link>
-<p>{ `${post.description.substring(0, 300)} ...`  }</p>
+<p>{ `${convertToHtml(post.description.substring(0, 300))} ...`  }</p>
 <button>Read more</button>
             </div>
           </div>

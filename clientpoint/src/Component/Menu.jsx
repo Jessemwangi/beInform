@@ -9,7 +9,7 @@ const Menu = ({catName}) => {
       const getPosts = async () => {
       
       try {
-          const res = await axios.get(`/posts/all?cat=${catName}`);
+          const res = await axios.get(`/posts/all?cat=${catName ? catName :'' }`);
           setPosts(res.data);
           console.log(res.data)
       } catch (error) {

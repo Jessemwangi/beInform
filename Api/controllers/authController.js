@@ -44,7 +44,7 @@ const login = (req, res) => {
 
   db.query(q,[params], (err,data) =>{
     if (err) return res.status(500).json(err)
-    if (data.length === 0) return res.status(404).json('user nao found');
+    if (data.length === 0) return res.status(404).json('user not found');
 
     // Checking for matching hashed passsword
     const isValidPassword = bcrypt.compareSync(req.body.password, data[0].password);

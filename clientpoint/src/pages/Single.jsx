@@ -7,12 +7,11 @@ import  axios  from "axios";
 import moment from 'moment';
 import { useContext } from "react";
 import { AuthContext } from '../context/authContext';
+import convertToHtml from "../Functions/functions";
 
 const Single = () => {
   const [post, setPost] = useState({});
   const location = useLocation() // location will have a path so use split to remove it
-  // /post/1?cat = food
-console.log(location);
   const navigate = useNavigate()
   const {currentUser} = useContext(AuthContext)
 
@@ -66,7 +65,7 @@ console.log(location);
           
             {currentUser?.username === post.username && 
             <div className="edit">
-            <Link to={`/write?edit=2`}>
+            <Link to={`/write?edit=2`} state={post}>
               <FiEdit />
       
             </Link>
@@ -75,7 +74,7 @@ console.log(location);
 }
         </div>
         <h1>{post.title} </h1>
-      {post.description} 
+      {convertToHtml(post.description)} 
       </div>
      <Menu catName={post.category}/>
     </div>
