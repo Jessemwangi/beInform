@@ -48,7 +48,7 @@ const login = (req, res) => {
 
     // Checking for matching hashed passsword
     const isValidPassword = bcrypt.compareSync(req.body.password, data[0].password);
-    if (!isValidPassword) return res.status(400).json('wrong username or password');
+    if (!isValidPassword) return res.status(400).json('Wrong username or password');
 const token = jwt.sign({id:data[0].id},"s3cr3t");
 const {password,...other} = data[0];
   

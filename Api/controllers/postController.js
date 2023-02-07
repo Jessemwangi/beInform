@@ -60,7 +60,7 @@ const addPost = (req, res) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not Authenticated!");
     jwt.verify(token, "s3cr3t", (err, userInfo) => {
-      if (err) return res.status(403).json("Token Not Valid!");
+      if (err) return res.status(403).json("Authentication token Not Valid");
       const q = "insert into posts (`title`,`description`,`image`,`CatID`,`uid`) VALUES (?)";
       const params = [
         req.body.title,
@@ -95,7 +95,7 @@ const deletePost = (req, res) => {
   if (!token) return res.status(401).json("Not Authenticated!");
 
   jwt.verify(token, "s3cr3t", (err, userInfo) => {
-    if (err) return res.status(403).json("Token Not Valid!");
+    if (err) return res.status(403).json("Authentication token Not Valid!");
 
     const q = "delete from posts where id = ? and uid = ?";
     db.query(q, [req.params.id, userInfo.id], (err, data) => {
@@ -111,7 +111,7 @@ const putPost = (req, res) => {
   if (!token) return res.status(401).json("Not Authenticated!");
 
   jwt.verify(token, "s3cr3t", (err, userInfo) => {
-    if (err) return res.status(403).json(err);
+    if (err) return res.status(403).json("Authentication token Not Valid!");
 
     const q =
       "update posts set title = ?,description = ?,image = ?,CatID = ? where id=? and uid = ?";
