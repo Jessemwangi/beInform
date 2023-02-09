@@ -6,10 +6,13 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Write from './pages/Write';
 import Single from './pages/Single';
+import Fab from "@mui/material/Fab";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Login from './pages/Login';
 import Navbar from './Component/Navbar';
 import Footer from './Component/Footer';
 import NotFound from './pages/NotFound';
+import BackToTop from './pages/BackToTop';
 
 
 const Layout = () =>{
@@ -49,6 +52,11 @@ function App() {
       <div className='container'>
 
  <RouterProvider router={router} />
+ <BackToTop>
+        <Fab size="large" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </BackToTop>
       </div>
     </div>
   );

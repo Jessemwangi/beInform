@@ -1,0 +1,179 @@
+header {
+    background: #0000004a;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* position: fixed;
+    margin-bottom: 3rem; */
+}
+
+.mainnav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mobilebtn {
+    display: none;
+}
+
+.menuUl {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+}
+
+.mainMenuList {
+    outline: none;
+    display: block;
+    border-bottom: #555 4px double;
+    transition: 1s;
+}
+
+.mainMenuList:hover,
+.menuUl>li:hover {
+    transform: scale(1.1);
+    border: white solid 2px;
+    border-radius: 5px;
+    color: #e2e0e0;
+}
+
+.link {
+    width: 50px;
+    text-decoration: none;
+    display: block;
+    padding: 0 1rem;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+
+}
+
+.write {
+    background-color: lightgreen;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+}
+
+.write:hover {
+    width: 46px;
+    height: 46px;
+    columns: teal;
+    background-color: #fff;
+    border: 1px solid teal;
+}
+
+.userDisplay{
+    width: fit-content;
+    padding: 1px;
+    color:lightgreen;
+}
+@media only screen and (max-width: 766px) {
+    header {
+        width: 100%;
+    }
+
+    .mainnav {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        width: 88%;
+        margin: 0 auto;
+    }
+
+    .mainnav>.menuUl {
+        display: none;
+    }
+
+    .menuUl {
+        width: 100%;
+        padding-right: 2rem;
+    }
+
+    .menuUl>li>a:hover,
+    .menuUl>li:hover {
+        opacity: 0.7;
+    }
+
+    .menuUl>li>a:active,
+    .menuUl>li:active {
+        background: rgb(255, 255, 255);
+        box-shadow: 0 0 10px rgb(207, 8, 8);
+        border: rgb(148, 75, 75) solid 2px;
+        transform: scale(0.8);
+    }
+
+    .mobilebtn {
+        display: block;
+        border: none;
+        padding: 1rem;
+    }
+
+    .responsive {
+        transition: 2s;
+    }
+
+    .mainnav.responsive .menuUl {
+        display: block;
+        background: white;
+        color: black;
+    }
+
+    .mainnav.responsive ul li {
+        display: block;
+        padding: 0.5rem;
+        margin: 1rem;
+        box-shadow: none;
+        border-bottom: 1px solid #546cac;
+    }
+
+    .mainnav.responsive ul li a {
+        display: block;
+        padding: 0px;
+        text-align: center;
+        width: 98%;
+    }
+
+    .mainnav.responsive ul li:hover {
+        background: #546cac;
+        color: white;
+        display: block;
+    }
+
+    /* ---- humberger -------------- */
+    header {
+        position: relative;
+        background: white;
+    }
+
+    span.MuiSvgIcon-_root>svg {
+        width: 100px;
+        height: fit-content;
+        transition: 0.2s all;
+        box-shadow: 0 0 10px black;
+        border: #9f9b9b solid 1px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .MuiSvgIcon-root:active {
+        transform: scale(0.8);
+        box-shadow: 0 0 5px black;
+    }
+
+    .MuiSvgIcon-root:hover {
+        transition: 0.2s all;
+        box-shadow: 0 0 10px rgb(207, 8, 8);
+        border: rgb(148, 75, 75) solid 2px;
+    }
+
+}

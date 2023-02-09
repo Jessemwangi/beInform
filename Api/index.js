@@ -47,6 +47,6 @@ const file = req.file;
   })
 
 
-app.listen(port,host, () => console.log(`server is listening on port ${port}! and host : ${host}`))
+app.listen(port,process.env.PORT || host, () => console.log(`server is listening on port ${port}! and host : ${host}`))
 
 
