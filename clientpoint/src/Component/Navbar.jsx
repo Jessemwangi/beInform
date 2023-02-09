@@ -9,7 +9,7 @@ import "./navbar.css";
 const Navbar = () => {
   const [mobilemenucss, setMobilemenucss] = useState("");
   const { currentUser, logout } = useContext(AuthContext);
-console.log(currentUser)
+  console.log(currentUser);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const getPosts = async () => {
@@ -62,29 +62,25 @@ console.log(currentUser)
               </NavLink>
             </li>
           ))}
-
-         
-
-          
         </ul>
-       
-
-{currentUser ? (
-  <span onClick={logout} className="userDisplay"><small>Hi {currentUser?.username}</small> <br/>logout </span>
-) : (
-  <NavLink className="link " to="./login"> 
-  Login</NavLink>
-)} <span>
-
-</span>
-          <span className="write">
-            <NavLink className="link" to="/write">
-              write
-            </NavLink>
+        {currentUser ? (
+          <span onClick={logout} className="userDisplay">
+            <small>Hi {currentUser?.username}</small> <br />
+            logout{" "}
           </span>
+        ) : (
+          <NavLink className="link " to="./login">
+            Login
+          </NavLink>
+        )}{" "}
+        <span></span>
+        <span className="write">
+          <NavLink className="link" to="/write">
+            write
+          </NavLink>
+        </span>
       </nav>
     </header>
-    
   );
 };
 
