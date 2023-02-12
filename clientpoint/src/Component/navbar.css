@@ -1,10 +1,8 @@
 header {
-    background: #0000004a;
+    background: linear-gradient(45deg, #c372d9fa, #3f0458de);
     display: flex;
     flex-direction: row;
     width: 100%;
-    /* position: fixed;
-    margin-bottom: 3rem; */
 }
 
 .mainnav {
@@ -18,6 +16,7 @@ header {
 }
 
 .menuUl {
+    padding: 0.5rem 0 0.5rem 1rem;
     list-style: none;
     display: flex;
     flex-direction: row;
@@ -26,14 +25,14 @@ header {
 }
 
 .mainMenuList {
+    margin: 1rem 0.2rem;
     outline: none;
-    display: block;
     border-bottom: #555 4px double;
     transition: 1s;
 }
 
-.mainMenuList:hover,
-.menuUl>li:hover {
+
+.menuUl>li>a:hover {
     transform: scale(1.1);
     border: white solid 2px;
     border-radius: 5px;
@@ -41,10 +40,11 @@ header {
 }
 
 .link {
-    width: 50px;
+    width: 100px;
+    font-size: 22px;
     text-decoration: none;
     display: block;
-    padding: 0 1rem;
+    padding: 1rem 0.2rem;
     font-size: 18px;
     color: rgb(0, 0, 0);
     text-align: center;
