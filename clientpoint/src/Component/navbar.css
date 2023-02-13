@@ -193,5 +193,18 @@ transition: 0.7s ease all;
         box-shadow: 0 0 10px rgb(207, 8, 8);
         border: rgb(148, 75, 75) solid 2px;
     }
+.home{
+    flex-direction: column;
+}
+.app .container .home .post {
+   flex-direction: column;
+}
+    .app .container .home .post:nth-child(2n+1) {
+        /* flex-direction: row-reverse; */
 
+        flex-direction: column;
+    }
+    .app .container .single {
+flex-direction: column;
+    }
 }

@@ -9,7 +9,6 @@ import "./navbar.css";
 const Navbar = () => {
   const [mobilemenucss, setMobilemenucss] = useState("");
   const { currentUser, logout } = useContext(AuthContext);
-  console.log(currentUser);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const getPosts = async () => {

@@ -1,5 +1,14 @@
 $lightgreen: #7d3e96;
-
+button.true{
+  background: #919191 !important;
+  color: antiquewhite !important;
+  cursor: none !important;
+}
+button.true:hover{
+  background: #919191 !important;
+  color: antiquewhite !important;
+  cursor: none !important;
+}
 .app {
   display: flex;
   justify-content: center;
@@ -72,6 +81,7 @@ $lightgreen: #7d3e96;
           }
 
         }
+        
         span {
           font-size: 12px;
           text-align: center;
@@ -323,12 +333,12 @@ $lightgreen: #7d3e96;
         gap: 20px;
         border: 1px solid lightgray;
 
-        input{
-          flex: 2;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
+        // input{
+        //   flex: 2;
+        //   display: flex;
+        //   flex-direction: column;
+        //   gap: 20px;
+        // }
 
         .editorContainer{
           height: 300px;
@@ -391,7 +401,7 @@ $lightgreen: #7d3e96;
                 color: white;
                 background-color: #68317E;
               }
-  
+              
             }
 
             :last-child{
