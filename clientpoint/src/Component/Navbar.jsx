@@ -63,22 +63,24 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+        <div className="actionArea"> 
         {currentUser ? (
           <span onClick={logout} className="userDisplay">
             <small>Hi {currentUser?.username}</small> <br />
             logout{" "}
           </span>
         ) : (
-          <NavLink className="link " to="./login">
+          <NavLink className="write userDisplay" to="./login">
             Login
           </NavLink>
         )}{" "}
         <span></span>
-        <span className="write">
-          <NavLink className="link" to="/write">
+        <span >
+          <NavLink className="write userDisplay" to="/write">
             write
           </NavLink>
         </span>
+        </div>
       </nav>
     </header>
   );

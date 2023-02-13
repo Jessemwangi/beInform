@@ -44,7 +44,10 @@ await login(inputs);
             <form action="">
                 <input type="text" name='username' placeholder='username' onChange={handleChange}/>
                 <input type="password" name='password' placeholder='passord' onChange={handleChange} />
+                <div style={{position:"relative"}}>
+
                 <button onClick={signIn}>Login</button>
+                </div>
                 {err && <p>{err}</p>}
                 <span>Dont have accout <Link to='/Register'>Register</Link> </span>
             </form> 

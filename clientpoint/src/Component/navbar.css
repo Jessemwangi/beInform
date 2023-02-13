@@ -3,14 +3,22 @@ header {
     display: flex;
     flex-direction: row;
     width: 100%;
+    justify-content: space-evenly;
 }
 
 .mainnav {
     display: flex;
     align-items: center;
     gap: 1rem;
+    justify-content: space-between;
+    width: 98%;
 }
-
+.actionArea{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+}
 .mobilebtn {
     display: none;
 }
@@ -41,7 +49,7 @@ header {
     font-size: 18px;
     color: rgb(0, 0, 0);
     text-align: center;
-transition: 0.1s ease all;
+transition: 0.7s ease all;
 }
 
 .menuUl>li>.link:hover {
@@ -49,7 +57,7 @@ transition: 0.1s ease all;
     border-radius: 5px;
     text-shadow: black 1px 0 5px;
     color: #e2e0e0;
-    transition: 0.1s ease all;
+    transition: 0.7s ease all;
 }
 
 
@@ -59,28 +67,31 @@ transition: 0.1s ease all;
 }
 
 .write {
-    background-color: lightgreen;
-    width: 50px;
-    height: 50px;
+    background-color: #0a0a0a;
+    border: 1px black solid;
+    width: 70px;
+    height: 70px;
     display: flex;
     border-radius: 50%;
     align-items: center;
     justify-content: center;
     font-weight: 300;
+    transition: 1s ease all;
 }
 
 .write:hover {
-    width: 46px;
-    height: 46px;
+    width: 63px;
+    height: 63px;
+    color: #68317E;
     columns: teal;
     background-color: #fff;
-    border: 1px solid teal;
+    border: 1px solid black;
 }
 
 .userDisplay{
-    width: fit-content;
     padding: 1px;
-    color:lightgreen;
+    color:#fff;
+    text-decoration: none;
 }
 @media only screen and (max-width: 766px) {
     header {
@@ -165,7 +176,7 @@ transition: 0.1s ease all;
     span.MuiSvgIcon-_root>svg {
         width: 100px;
         height: fit-content;
-        transition: 0.2s all;
+        transition: 1s all;
         box-shadow: 0 0 10px black;
         border: #9f9b9b solid 1px;
         border-radius: 50%;
@@ -178,7 +189,7 @@ transition: 0.1s ease all;
     }
 
     .MuiSvgIcon-root:hover {
-        transition: 0.2s all;
+        transition: 0.8s all;
         box-shadow: 0 0 10px rgb(207, 8, 8);
         border: rgb(148, 75, 75) solid 2px;
     }
