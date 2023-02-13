@@ -27,17 +27,10 @@ header {
 .mainMenuList {
     margin: 1rem 0.2rem;
     outline: none;
-    border-bottom: #555 4px double;
+    border-bottom: #e2e0e0 4px double;
     transition: 1s;
 }
 
-
-.menuUl>li>a:hover {
-    transform: scale(1.1);
-    border: white solid 2px;
-    border-radius: 5px;
-    color: #e2e0e0;
-}
 
 .link {
     width: 100px;
@@ -48,7 +41,21 @@ header {
     font-size: 18px;
     color: rgb(0, 0, 0);
     text-align: center;
+transition: 0.1s ease all;
+}
 
+.menuUl>li>.link:hover {
+    transform: scale(1.1);
+    border-radius: 5px;
+    text-shadow: black 1px 0 5px;
+    color: #e2e0e0;
+    transition: 0.1s ease all;
+}
+
+
+.link h6{
+    color: #e2e0e0;
+    font-size: 18px;
 }
 
 .write {

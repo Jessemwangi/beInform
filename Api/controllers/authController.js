@@ -1,11 +1,10 @@
 "use strict";
 
-const db = require("../db/dbconnect");
-const { doQuery } = require("./db.doQuery/databaseQ");
+const  {msDb ,psPool,psDb} = require("../db/dbconnect");
+const db = msDb;
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie-parser')
-
 
 const getauth = (req, res) => {
   res.json("this is auth get");

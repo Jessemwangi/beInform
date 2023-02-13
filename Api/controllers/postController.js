@@ -1,10 +1,10 @@
 "use strict";
 
-const db = require("../db/dbconnect");
+const {msDb} = require("../db/dbconnect");
+const db = msDb;
 const jwt = require("jsonwebtoken");
 
 const getPosts = (req, res) => {
-  console.log("hapa");
   try {
     const cat = req.query.cat;
     let q = "";
@@ -25,34 +25,6 @@ const getPosts = (req, res) => {
   }
 };
 
-// const dummyget = (req,res) =>{
-//     console.log('hapa')
-//     const q = 'select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc'
-//     db.query(q,'food', (err,data) =>{
-//         res.status(200).json(data)
-
-//     })
-// //     console.log('hapa',req.query.cat )
-// //  try {
-// //     console.log(req.query)
-//     // const cat = req.query.cat
-//     // let q='';
-// //       if (cat) {
-// // q = "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc"
-// //       }
-// //         else{
-// // q = "select p.id,p.title,p.description,p.image,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc"
-// //         }
-
-// //          db.query(q,req.query.cat, (err,data) =>{
-// if (data.length) {return res.status(200).json(data)}
-//  else  {return res.status(500).json(err)}
-// //          })
-// // } catch (error) {
-// //     res.status(500).json(error);
-// // }
-
-//     }
 
 const addPost = (req, res) => {
 
@@ -69,14 +41,12 @@ const addPost = (req, res) => {
         req.body.CatID,
         userInfo.id,
       ];
-      console.log(params);
       db.query(q, [params], (err, data) => {
         if (err) return res.status(500).json(err);
         return res.status(200).json("transacted successful");
       });
     });
   } catch (error) {
-    console.log(error);
     res.json(error);
   }
 };
@@ -121,7 +91,6 @@ const putPost = (req, res) => {
         req.body.image,
         req.body.CatID,
       ];
-      console.log(params);
     const postId = req.params.id;
     db.query(q, [...params, postId, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
