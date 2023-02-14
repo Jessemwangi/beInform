@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import logo from "../Assets/Logo.png";
+import {  NavLink } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import axios from "axios";

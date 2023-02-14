@@ -18,17 +18,17 @@ try {
   setIsLoading(true)
 	  const res = await axios.get(`/posts/all${cat}`);
     setPosts(res.data);
-  console.log(res);
+  // console.log(res);
   setIsLoading(false)
 } catch (error) {
-	console.log(error)
+	// console.log(error)
   setIsLoading(true)
 }
 }
 getPosts();
   },[cat])
   
- console.log(isLoading)
+  console.log(isLoading)
 
 
   

@@ -3,8 +3,10 @@ import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
-import { Input, InputAdornment, InputLabel } from '@mui/material';
+import { IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Login = () => {
     const initial ={
@@ -12,6 +14,13 @@ const Login = () => {
         ,password:'',
     }
 
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+  
+    const handleMouseDownPassword = (event) => {
+      event.preventDefault();
+    };
     const [inputs,SetInputs] = useState(initial)
     const [err,setErr] =useState(null)
     const navigate = useNavigate();
@@ -22,7 +31,7 @@ const Login = () => {
     const handleChange = (e) => {
         
         SetInputs(prev => ({...prev, [e.target.name]:e.target.value}))
-        // console.log(inputs);
+        console.log(inputs);
     }
 
 
@@ -44,22 +53,48 @@ await login(inputs);
         <div className='auth'> 
             <h1>login</h1>
             <form action="">
+
+
             <InputLabel htmlFor="input-with-icon-adornment">
-          With a start adornment
+          UserName
         </InputLabel>
-        <Input
+        <OutlinedInput name='username'
           id="input-with-icon-adornment"
-          startAdornment={
-            <InputAdornment position="start">
+          endAdornment={
+            <InputAdornment position="end">
               <AccountCircle />
             </InputAdornment>
           }
+          onChange={handleChange}
         />
-                <input type="text" name='username' placeholder='username' onChange={handleChange}/>
-                <input type="password" name='password' placeholder='passord' onChange={handleChange} />
+
+<InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput onChange={handleChange}  name='password'
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+           
+          />
+
+
+
+
+                {/* <input type="text"  placeholder='username' /> */}
+                {/* <input type="password"  placeholder='passord' /> */}
                 <div style={{position:"relative"}}>
 
-                <button onClick={signIn}>Login</button>
+                <button className='loginBtn' onClick={signIn}>Login</button>
                 </div>
                 {err && <p>{err}</p>}
                 <span>Dont have accout <Link to='/Register'>Register</Link> </span>

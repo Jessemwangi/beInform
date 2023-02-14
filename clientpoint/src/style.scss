@@ -41,14 +41,14 @@ button.true:hover{
         flex-direction: column;
         padding: 10px;
         gap: 20px;
-        width: 200px;
+        width: 400px;
         background: snow;
         input {
           padding: 10px;
           border: none;
           border-bottom: 1px grey solid;
         }
-        button {
+        .loginBtn {
           width: 100%;
           color: #68317E;;
           cursor: pointer;

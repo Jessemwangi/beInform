@@ -11,10 +11,8 @@ const Write = () => {
 
   const [value, setValue] = useState(state?.description || "");
   const [title, setTitle] = useState(state?.title || "");
-  const [description, setDescription] = useState(state?.title || "");
   const [CatID, setCat] = useState(state?.CatID || "");
   const [image, setImage] = useState(state?.image || "");
-  const [previewImg, setPreviewImage] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
 
   const [categories, setCategories] = useState([]);
