@@ -52,7 +52,7 @@ const Navbar = () => {
           {categories.map((cat) => (
             <li className="mainMenuList" key={cat.name}>
               <NavLink
-                className="link"
+                className="link hundredpx"
                 to={`/?cat=${cat.name}`}
                 key={cat.catid}
               >

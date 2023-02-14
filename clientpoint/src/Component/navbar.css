@@ -41,7 +41,6 @@ header {
 
 
 .link {
-    width: 100px;
     font-size: 22px;
     text-decoration: none;
     display: block;
@@ -52,6 +51,9 @@ header {
 transition: 0.7s ease all;
 }
 
+.hundredpx{
+    width: 100px;
+}
 .menuUl>li>.link:hover {
     transform: scale(1.1);
     border-radius: 5px;

@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import axios from 'axios';
 import moment from 'moment';
 import convertToHtml from "../Functions/functions";
+import { Box, LinearProgress } from "@mui/material";
 
 
 const Home = () => {
@@ -28,17 +29,21 @@ try {
 getPosts();
   },[cat])
   
-  console.log(isLoading)
-
-
-  
   return (
+    isLoading ? (
+<Box sx={{ width: '100%' }}>
+      <LinearProgress color="secondary" />
+    </Box>
+    ):
+(
     <div className="home">
       <div className="posts">
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-              <img src={`../posts/images/${post?.image}`} alt={post.titles} />
+           
+              <img src={`${post?.image}`} alt={post.titles} />   {/* // with dummy data */}
+              {/* <img src={`../posts/images/${post?.image}`} alt={post.titles} />working with db files */}
             </div>
             <div className="content">
                 <Link to={`/post/${post.id}`}
@@ -52,6 +57,7 @@ getPosts();
         ))}
       </div>
     </div>
+  )
   );
 };
 
