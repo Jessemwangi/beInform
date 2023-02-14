@@ -1,6 +1,6 @@
 "use strict";
 
-const {msDb} = require("../db/dbconnect");
+const { msDb } = require("../db/dbconnect");
 const db = msDb;
 const jwt = require("jsonwebtoken");
 
@@ -25,27 +25,67 @@ const getPosts = (req, res) => {
   }
 };
 
-
-const addPost = (req, res) => {
-
+const addPost = async (req, res) => {
   try {
-    const token = req.cookies.access_token;
-    if (!token) return res.status(401).json("Not Authenticated!");
-    jwt.verify(token, "s3cr3t", (err, userInfo) => {
-      if (err) return res.status(403).json("Authentication token Not Valid");
-      const q = "insert into posts (`title`,`description`,`image`,`CatID`,`uid`) VALUES (?)";
-      const params = [
-        req.body.title,
-        req.body.description,
-        req.body.image,
-        req.body.CatID,
-        userInfo.id,
-      ];
-      db.query(q, [params], (err, data) => {
-        if (err) return res.status(500).json(err);
-        return res.status(200).json("transacted successful");
-      });
+    // const token = req.cookies.access_token;
+    // if (!token) return res.status(401).json("Not Authenticated!");
+    // jwt.verify(token, "s3cr3t", (err, userInfo) => {
+    //   if (err) return res.status(403).json("Authentication token Not Valid");
+    const q =
+      "insert into posts (`title`,`description`,`image`,`CatID`,`uid`) VALUES (?)";
+    const q2 =
+      "insert into postsStatus (`postId`,`statusId`,`createdBy`,`publishedBy`) VALUES (?)";
+
+    const postParams = [
+      req.body.title,
+      req.body.description,
+      req.body.image,
+      req.body.CatID,
+      req.body.uid,
+    ];
+
+    // const postParams = [
+    //   req.body.title,
+    //   req.body.description,
+    //   req.body.image,
+    //   req.body.CatID,
+    //   userInfo.id,
+    // ];
+
+    console.log(postParams);
+    db.query(q, [postParams], async (err, data) => {
+      if (err) {
+        return res.status(500).json("cant insert the data query 1");
+      } else {
+        const insertedId = await data.insertId;
+        if (insertedId > 0) {
+          const postStatusParams = [
+            insertedId,
+            req.body.statusId,
+            req.body.uid,
+            req.body.uid,
+          ];
+          db.query(q2, [postStatusParams], (err, data) => {
+            if (err) {
+              console.log(err)
+              db.query('delete from posts where id=(?)',[insertedId],()=>{})
+              return res.status(500).json('An error occured creating post status details, reverted back ....');
+            }
+            else{
+              return res.status(200).json(data.insertId);
+            }
+          });
+        }
+        else{
+          console.log(err)
+          db.query('delete from posts where id=(?)',[insertedId],()=>{})
+          return res.status(500).json('Failed to retrieve inserted post ID. reverting back ...');
+        }
+        
+        
+      }
     });
+    // });
   } catch (error) {
     res.json(error);
   }
@@ -76,7 +116,6 @@ const deletePost = (req, res) => {
 };
 
 const putPost = (req, res) => {
-
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not Authenticated!");
 
@@ -85,12 +124,12 @@ const putPost = (req, res) => {
 
     const q =
       "update posts set title = ?,description = ?,image = ?,CatID = ? where id=? and uid = ?";
-      const params = [
-        req.body.title,
-        req.body.description,
-        req.body.image,
-        req.body.CatID,
-      ];
+    const params = [
+      req.body.title,
+      req.body.description,
+      req.body.image,
+      req.body.CatID,
+    ];
     const postId = req.params.id;
     db.query(q, [...params, postId, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
