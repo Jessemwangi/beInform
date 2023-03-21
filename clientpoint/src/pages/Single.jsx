@@ -8,6 +8,7 @@ import moment from 'moment';
 import { useContext } from "react";
 import { AuthContext } from '../context/authContext';
 import convertToHtml from "../Functions/functions";
+import { toast } from "react-toastify";
 
 const Single = () => {
   const [post, setPost] = useState({});
@@ -20,8 +21,8 @@ const Single = () => {
     const getPosts = async () => {
     
     try {
-        const res = await axios.get(`/posts/${postId}`);
-        setPost(res.data);
+        const {data} = await axios.get(`/posts/${postId}`);
+        setPost(data);
      
     } catch (error) {
       console.log(error)
@@ -32,7 +33,8 @@ const Single = () => {
 
      const handleImageDelete = async() =>{
       try {
-        await axios.delete(`posts/${postId}`)
+        await axios.delete(`/posts/${postId}`)
+        toast.info("Deleted ")
         navigate('/');
       } catch (error) {
         console.log(error)

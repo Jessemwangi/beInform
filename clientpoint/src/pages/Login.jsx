@@ -8,11 +8,14 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const Login = () => {
     const initial ={
         username:''
         ,password:'',
     }
+    
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -31,7 +34,6 @@ const Login = () => {
     const handleChange = (e) => {
         
         SetInputs(prev => ({...prev, [e.target.name]:e.target.value}))
-        console.log(inputs);
     }
 
 
@@ -86,10 +88,6 @@ await login(inputs);
             }
            
           />
-
-
-
-
                 {/* <input type="text"  placeholder='username' /> */}
                 {/* <input type="password"  placeholder='passord' /> */}
                 <div style={{position:"relative"}}>
@@ -99,6 +97,7 @@ await login(inputs);
                 {err && <p>{err}</p>}
                 <span>Dont have accout <Link to='/Register'>Register</Link> </span>
             </form> 
+         
         </div>
     );
 };

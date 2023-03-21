@@ -42,8 +42,11 @@ getPosts();
           <div className="post" key={post.id}>
             <div className="img">
            
-              <img src={`${post?.image}`} alt={post.titles} />   {/* // with dummy data */}
-              {/* <img src={`../posts/images/${post?.image}`} alt={post.titles} />working with db files */}
+                {/* // with dummy data */}
+              {/* <img src={`${post?.image}`} alt={post.titles} />  */}
+              {/*
+              working with db files */}
+               <img src={`../posts/images/${post?.image}`} alt={post.titles} />
             </div>
             <div className="content">
                 <Link to={`/post/${post.id}`}

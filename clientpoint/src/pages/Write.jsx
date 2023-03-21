@@ -2,9 +2,14 @@ import { TextField } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
+
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Write = () => {
   const state = useLocation().state;
@@ -18,13 +23,30 @@ const Write = () => {
   const [categories, setCategories] = useState([]);
   const [errorState, setErrorState] = useState(true);
   const [btnDisable, setBtnDisable] = useState(()=>errorState);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  
+  const options = {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
 
+  if(!currentUser.id){
+    navigate("/login")
+    toast.warning("Login to Start Posting",options)
+  }
  
   const uploadPostImage = async (img) => {
     setUploadingImage(true);
     try {
       const formData = new FormData();
       formData.append("file", img);
+      toast.info("Uploading image",options)
       const { data } = await axios.post("/upload/posts/images", formData);
       setUploadingImage(false);
       return data;
@@ -46,9 +68,8 @@ const Write = () => {
     fetchCats();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e,status_Id) => {
     e.preventDefault();
-
     try {
       const updateData = {
         title,
@@ -56,25 +77,48 @@ const Write = () => {
         CatID,
         image: image ? image : state?.image,
         UpdateOn: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+        statusId:status_Id,
       };
-
+  
       const postData = {
         title,
         description: value,
         CatID,
         image: image ? image : "",
+        statusId:status_Id,
+        publishedOn:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
       };
+  
       console.log("updateData ...", updateData, "postData ...", postData);
-      state
-        ? await axios.put(`/posts/${state.id}`, updateData)
-        : await axios.post(`/posts/`, postData);
+  
+      let response, result;
+  
+      if (state) {
+        result = await axios.put(`/posts/${state.id}`, updateData)
+      } else {
+        result = await axios.post(`/posts/`, postData);
+      }
+  
+      response = {
+        message: result.data,
+        code: result.status
+      };
+  
+      if (response.code === 200) {
+        toast.success(response.message,options);
+      } else {
+        toast.error(response.message,options);
+      }
+  
     } catch (error) {
       console.log(error);
+      toast.error("an error has occured",options);
     }
   };
-
+  
   return (
     <div className="add">
+       <ToastContainer />
       <div className="content">
         <TextField
           error={errorState}
@@ -142,7 +186,7 @@ const Write = () => {
           </label>
           <div className="buttons">
             <button className={`${btnDisable}`} disabled={btnDisable}>save as a draft</button>
-            <button className={`${btnDisable}`} disabled={btnDisable} onClick={handleSubmit}>
+            <button className={`${btnDisable}`} disabled={btnDisable} onClick={(e)=>handleSubmit(e,1)}>
               Publish
             </button>
           </div>
@@ -150,7 +194,7 @@ const Write = () => {
         <div className="item">
           <h1>category</h1>
           {categories.map((category) => (
-            <>
+           
               <div className="cat" key={category.catid}>
                 <input
                   type="radio"
@@ -164,9 +208,10 @@ const Write = () => {
                 />
                 <label htmlFor={category.id}>{category.name}</label>
               </div>
-            </>
+            
           ))}
         </div>
+
       </div>
     </div>
   );
