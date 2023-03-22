@@ -49,6 +49,10 @@ const file = req.file;
      
   })
 
+  app.delete('/products/:id', function(req, res) {
+    const { id } = req.params;
+    res.send(`Delete record with id ${id}`);
+  });
 
 app.listen(port,process.env.PORT || host, () => console.log(`server is listening on port ${port}! and host : ${host}`))
 

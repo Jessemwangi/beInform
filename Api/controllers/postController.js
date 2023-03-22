@@ -27,65 +27,63 @@ const getPosts = (req, res) => {
 
 const addPost = async (req, res) => {
   try {
-    // const token = req.cookies.access_token;
-    // if (!token) return res.status(401).json("Not Authenticated!");
-    // jwt.verify(token, "s3cr3t", (err, userInfo) => {
-    //   if (err) return res.status(403).json("Authentication token Not Valid");
-    const q =
-      "insert into posts (`title`,`description`,`image`,`CatID`,`uid`) VALUES (?)";
-    const q2 =
-      "insert into postsStatus (`postId`,`statusId`,`createdBy`,`publishedBy`) VALUES (?)";
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not Authenticated!");
+    jwt.verify(token, "s3cr3t", (err, userInfo) => {
+      if (err) return res.status(403).json("Authentication token Not Valid");
+      const q =
+        "insert into posts (`title`,`description`,`image`,`CatID`,`uid`) VALUES (?)";
+      const q2 =
+        "insert into postsStatus (`postId`,`statusId`,`createdBy`,`publishedBy`) VALUES (?)";
 
-    const postParams = [
-      req.body.title,
-      req.body.description,
-      req.body.image,
-      req.body.CatID,
-      req.body.uid,
-    ];
+      const postParams = [
+        req.body.title,
+        req.body.description,
+        req.body.image,
+        req.body.CatID,
+        userInfo.id,
+      ];
 
-    // const postParams = [
-    //   req.body.title,
-    //   req.body.description,
-    //   req.body.image,
-    //   req.body.CatID,
-    //   userInfo.id,
-    // ];
-
-    console.log(postParams);
-    db.query(q, [postParams], async (err, data) => {
-      if (err) {
-        return res.status(500).json("cant insert the data query 1");
-      } else {
-        const insertedId = await data.insertId;
-        if (insertedId > 0) {
-          const postStatusParams = [
-            insertedId,
-            req.body.statusId,
-            req.body.uid,
-            req.body.uid,
-          ];
-          db.query(q2, [postStatusParams], (err, data) => {
-            if (err) {
-              console.log(err)
-              db.query('delete from posts where id=(?)',[insertedId],()=>{})
-              return res.status(500).json('An error occured creating post status details, reverted back ....');
-            }
-            else{
-              return res.status(200).json(data.insertId);
-            }
-          });
+      console.log(postParams);
+      db.query(q, [postParams], async (err, data) => {
+        if (err) {
+          return res.status(500).json("cant insert the data query 1");
+        } else {
+          const insertedId = await data.insertId;
+          if (insertedId > 0) {
+            const postStatusParams = [
+              insertedId,
+              req.body.statusId,
+              userInfo.id,
+              userInfo.id,
+            ];
+            db.query(q2, [postStatusParams], (err, data) => {
+              if (err) {
+                console.log(err);
+                db.query(
+                  "delete from posts where id=(?)",
+                  [insertedId],
+                  () => {}
+                );
+                return res
+                  .status(500)
+                  .json(
+                    "An error occured creating post status details, reverted back ...."
+                  );
+              } else {
+                return res.status(200).json("Post Successful Created");
+              }
+            });
+          } else {
+            console.log(err);
+            db.query("delete from posts where id=(?)", [insertedId], () => {});
+            return res
+              .status(500)
+              .json("Failed to retrieve inserted post ID. reverting back ...");
+          }
         }
-        else{
-          console.log(err)
-          db.query('delete from posts where id=(?)',[insertedId],()=>{})
-          return res.status(500).json('Failed to retrieve inserted post ID. reverting back ...');
-        }
-        
-        
-      }
+      });
     });
-    // });
   } catch (error) {
     res.json(error);
   }
@@ -100,8 +98,13 @@ const getPost = (req, res) => {
   });
 };
 
-const deletePost = (req, res) => {
+// const deletePost = (req, res) => {
+
+// };
+
+const deleteData = (req, res) => {
   const token = req.cookies.access_token;
+  console.log(req.params.id);
   if (!token) return res.status(401).json("Not Authenticated!");
 
   jwt.verify(token, "s3cr3t", (err, userInfo) => {
@@ -109,8 +112,11 @@ const deletePost = (req, res) => {
 
     const q = "delete from posts where id = ? and uid = ?";
     db.query(q, [req.params.id, userInfo.id], (err, data) => {
-      if (err) return res.status(403).json("You can delete only you post!");
-      res.status(200).json("Post Deleted!");
+      if (err) {
+        return res.status(403).json("You can delete only you post!");
+      } else {
+        return res.status(200).json(`Delete record with id ${req.params.id}`);
+      }
     });
   });
 };
@@ -145,7 +151,7 @@ module.exports = {
   addPost,
   getPosts,
   getPost,
-  deletePost,
+  deleteData,
   putPost,
   updatePost,
 };
