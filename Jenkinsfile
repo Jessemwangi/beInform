@@ -23,7 +23,6 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        // Deploy the backend to a server or a cloud provider
         dir('blogger/API') {
           sh 'npm run deploy'
         }
