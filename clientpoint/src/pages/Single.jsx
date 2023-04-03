@@ -76,7 +76,11 @@ const Single = () => {
 }
         </div>
         <h1>{post.title} </h1>
-      {convertToHtml(post.description)} 
+        <p
+      dangerouslySetInnerHTML={{
+        __html: `${convertToHtml(post.description)}`,
+      }}
+    ></p>
       </div>
      <Menu catName={post.category}/>
     </div>

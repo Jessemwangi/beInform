@@ -53,7 +53,11 @@ getPosts();
                 className="link ">
 <h1>{post.title}</h1><small>{moment(post.datecreated).fromNow() }</small>
                 </Link>
-<p>{ `${convertToHtml(post.description.substring(0, 300))} ...`  }</p>
+                <p
+      dangerouslySetInnerHTML={{
+        __html: `${convertToHtml(post.description.substring(0, 300))}...`,
+      }}
+    ></p>
 <button>Read more</button>
             </div>
           </div>
