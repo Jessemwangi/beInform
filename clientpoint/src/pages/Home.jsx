@@ -41,11 +41,7 @@ getPosts();
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
-           
-                {/* // with dummy data */}
-              {/* <img src={`${post?.image}`} alt={post.titles} />  */}
-              {/*
-              working with db files */}
+
                <img src={`../posts/images/${post?.image}`} alt={post.titles} />
             </div>
             <div className="content">
@@ -58,7 +54,7 @@ getPosts();
         __html: `${convertToHtml(post.description.substring(0, 300))}...`,
       }}
     ></p>
-<button>Read more</button>
+<Link to={`/post/${post.id}`}><button>Read more</button></Link>
             </div>
           </div>
         ))}

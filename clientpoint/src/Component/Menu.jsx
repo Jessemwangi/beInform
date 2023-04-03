@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Menu = ({catName}) => {
 
@@ -27,7 +28,7 @@ const Menu = ({catName}) => {
                 <div className="post" key={post.id}>
                     <img src={`../posts/images/${post?.image}`} alt="" />
                     <h2>{post.title}</h2>
-                    <button>Read more</button>
+                    <Link to={`/post/${post.id}`}> <button>Read more</button></Link> 
                 </div>
             ))}
         </div>

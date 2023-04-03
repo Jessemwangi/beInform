@@ -49,6 +49,15 @@ const Navbar = () => {
           </span>
         </button>
         <ul className="menuUl">
+        <li className="mainMenuList" >
+              <NavLink
+                className="link hundredpx"
+                to={`/`}
+                
+              >
+                <h6>Home</h6>
+              </NavLink>
+            </li>
           {categories.map((cat) => (
             <li className="mainMenuList" key={cat.name}>
               <NavLink
