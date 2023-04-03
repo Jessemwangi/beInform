@@ -35,8 +35,8 @@ const Write = () => {
     draggable: true,
     progress: undefined,
   };
-
-  if(!currentUser.id){
+console.log(currentUser === null)
+  if(currentUser === null){
     navigate("/login")
     toast.warning("Login to Start Posting",options)
   }
@@ -89,8 +89,6 @@ const Write = () => {
         publishedOn:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
       };
   
-      console.log("updateData ...", updateData, "postData ...", postData);
-  
       let response, result;
   
       if (state) {
@@ -106,6 +104,7 @@ const Write = () => {
   
       if (response.code === 200) {
         toast.success(response.message,options);
+        navigate("/")
       } else {
         toast.error(response.message,options);
       }

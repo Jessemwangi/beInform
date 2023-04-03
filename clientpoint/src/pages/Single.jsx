@@ -45,10 +45,10 @@ const Single = () => {
 
   return (
     <div className="single">
-      
+     
       <div className="content">
         <img
-          src={post?.image}
+          src={`../posts/images/${post?.image}`}
           alt="imageone"
         />
         <div className="user">

@@ -53,6 +53,12 @@ await login(inputs);
     }
     return (
         <div className='auth'> 
+              <div style={{"width":"200px", "height":"200px", "overflow":"hidden", "borderRadius":"50%", "margin":"auto"}}>
+        <img style={{"height":"100%"}}
+          src="https://cdn.pixabay.com/photo/2020/12/08/16/56/eye-5814965_1280.jpg"
+          alt=""
+        />
+      </div>
             <h1>login</h1>
             <form action="">
 

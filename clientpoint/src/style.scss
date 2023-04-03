@@ -1,4 +1,4 @@
-$lightgreen: #7d3e96;
+$lightPurple: #7d3e96;
 button.true{
   background: #919191 !important;
   color: antiquewhite !important;
@@ -23,15 +23,17 @@ button.true:hover{
     //login and register
     .link {
       text-decoration: none;
-      color:#68317E;
+      color:$lightPurple;
     }
     .auth {
+      box-shadow: 0px 1px 10px 1px black;
+      border: 1px solid $lightPurple;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      background-color: $lightgreen;
+      height: 70vh;
+      background-color: $lightPurple;
       h1 {
         font-weight: 20px;
         margin-bottom: 20px;
@@ -50,10 +52,10 @@ button.true:hover{
         }
         .loginBtn {
           width: 100%;
-          color: #68317E;;
+          color: $lightPurple;
           cursor: pointer;
           background-color:white;
-          border: 2px solid #68317E;
+          border: 2px solid $lightPurple;
           padding: 10px;
           border-radius: 4px;
           position: relative;
@@ -75,7 +77,7 @@ button.true:hover{
             align-items: center;
             padding-left:0.5rem;
            
-            background-color: #68317E;
+            background-color: $lightPurple;
             color: white;
             transition: 0.9s ease all;
           }
@@ -126,7 +128,7 @@ button.true:hover{
     footer {
       margin-top: 100px;
       padding: 20px;
-      background-color: $lightgreen;
+      background-color: $lightPurple;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -159,7 +161,7 @@ button.true:hover{
             content: "";
             width: 100%;
             height: 100%;
-            background-color: $lightgreen;
+            background-color: $lightPurple;
             position: absolute;
             top: 20px;
             left: -20px;
@@ -185,7 +187,7 @@ button.true:hover{
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          border-bottom: 4px solid #59276E;
+          border-bottom: 4px solid $lightPurple;
           border-bottom-left-radius: 8px;
           h1 {
             font-size: 48px;
@@ -200,8 +202,8 @@ button.true:hover{
             border: none;
             position: relative;
             background-color: #fff;
-            border: 1px solid #68317E;
-            color: #68317E;
+            border: 1px solid $lightPurple;
+            color: $lightPurple;
             overflow: hidden;
             transition: 1s ease all;
             border-bottom-left-radius: 4px;
@@ -214,7 +216,7 @@ button.true:hover{
               display: flex;
               align-items: center;
               background: white;
-              color: #68317E;
+              color: $lightPurple;
               transition: 0.9s ease all;
               text-align: center;
             }
@@ -225,7 +227,7 @@ button.true:hover{
               border: 1px solid white;
               box-shadow: 0 0 9px black;
               color: black;
-              background-color: $lightgreen;
+              background-color: $lightPurple;
               color: white;
               transition: 0.9s ease all;
             }
@@ -289,7 +291,7 @@ button.true:hover{
       gap: 25px;
       h1 {
         font-size: 20px;
-        color: #68317E;;
+        color: $lightPurple;
       }
       .post {
         display: flex;
@@ -309,12 +311,12 @@ button.true:hover{
         padding: 10px;
         border: none;
         background-color: #fff;
-        border: 1px solid #68317E;
-        color: #68317E;
+        border: 1px solid $lightPurple;
+        color: $lightPurple;
         &:hover {
           border: 1px solid white;
           color: rgb(255, 255, 255);
-          background: #68317E;
+          background: $lightPurple;
         }
       }
     }
@@ -391,15 +393,15 @@ button.true:hover{
 
             :first-child{
               cursor: pointer;
-              color: #68317E; ;
+              color: $lightPurple; 
               background-color: white;
-              border: 1px solid #68317E; 
+              border: 1px solid $lightPurple; 
               padding: 3px 5px;
               transition: all 1s ease-in-out;
 
               &:hover{
                 color: white;
-                background-color: #68317E;
+                background-color: $lightPurple;
               }
               
             }
@@ -407,11 +409,11 @@ button.true:hover{
             :last-child{
               cursor: pointer;
               color: white;
-              background-color: #68317E;;
-              border: 1px solid #68317E; 
+              background-color: $lightPurple;;
+              border: 1px solid $lightPurple; 
               padding: 3px 5px;
               &:hover{
-                color: #68317E;
+                color: $lightPurple;
                 background-color: white;
               }
             }
@@ -421,7 +423,7 @@ button.true:hover{
             display: flex;
              align-items: center;
              gap: 2px;
-             color: #68317E;
+             color: $lightPurple;
           }
         }
       }
