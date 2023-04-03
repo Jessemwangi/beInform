@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer>
              <img src={logo} alt="Logo"  />
-             <span>made with love &copy: 2023</span>
+             <span>Made to inspire and write; &copy: 2023</span>
         </footer>
     );
 };

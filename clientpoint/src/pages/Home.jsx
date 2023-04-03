@@ -11,6 +11,7 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const cat = useLocation().search
   const [isLoading,setIsLoading] = useState(true);
+  const [error,setError] = useState('')
 
   useEffect(() =>{
 const getPosts = async () => {
@@ -23,7 +24,8 @@ try {
   setIsLoading(false)
 } catch (error) {
 	// console.log(error)
-  setIsLoading(true)
+  setError(error)
+  setIsLoading(false)
 }
 }
 getPosts();
@@ -36,6 +38,12 @@ getPosts();
     </Box>
     ):
 (
+  <>
+    {error ? 
+    (<>
+     <p className="error"> {error} </p></>) 
+    :
+    (
     <div className="home">
       <div className="posts">
         {posts.map((post) => (
@@ -60,8 +68,11 @@ getPosts();
         ))}
       </div>
     </div>
-  )
-  );
-};
+  )}
+  </>
 
+  )
+    
+);
+    }
 export default Home;
