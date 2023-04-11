@@ -40,7 +40,7 @@ const Login = () => {
     const signIn = async (e) =>{
         e.preventDefault();
      try {
-	  await  axios.post('/auth/login',inputs)
+	  // await  axios.post('/auth/login',inputs)
 await login(inputs);
       navigate('/');
 	//   console.log(res.data);
