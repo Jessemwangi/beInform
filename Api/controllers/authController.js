@@ -15,7 +15,7 @@ const regUser = (req, res) => {
   const q = "select * from users where email = ? or username = ?";
 
   const params = [req.body.email, req.body.username];
-
+try {
   const result = db.query(q, params, (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length) return res.status(409).json("Account already in use!!");
@@ -33,6 +33,10 @@ const regUser = (req, res) => {
       return res.status(200).json(req.body.username + " has been create");
     });
   });
+  
+} catch (error) {
+  console.log(error)
+}
 
 };
 
