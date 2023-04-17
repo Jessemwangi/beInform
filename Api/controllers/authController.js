@@ -69,4 +69,9 @@ const logout = (req, res) => {
   }).status(200).json("user logout")
 };
 
-module.exports = { getauth, regUser, login, logout };
+const testing = (req, res) => {
+  res.status(200).json('hello');
+}
+
+
+module.exports = { getauth, regUser, login, logout,testing };
