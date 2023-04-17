@@ -19,7 +19,7 @@ const getUser = (req, res) => {
 try {
    psPool.query(q, params, (err, data) => {
     if (err) return res.status(500).json(err);
-    if (data.length) 
+    if (data.rows.length > 0) 
     {
       return res.status(409).json("Account already in use!!");
     }
