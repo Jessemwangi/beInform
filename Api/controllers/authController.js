@@ -17,7 +17,7 @@ const regUser = (req, res) => {
   const params = [req.body.email, req.body.username];
  
 try {
-  const result = psPool.query(q, params, (err, data) => {
+   psPool.query(q, params, (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length) 
     {
