@@ -38,7 +38,6 @@ const Write = () => {
   useEffect(() => {
     if(currentUser === null){
       navigate("/login")
-      toast.warning("Login to Start Posting",options)
     }
 
   },[currentUser, navigate])
@@ -53,7 +52,6 @@ const Write = () => {
       setUploadingImage(false);
       return data;
     } catch (error) {
-      console.log(error);
       return null;
     }
   };
@@ -64,7 +62,6 @@ const Write = () => {
         const res = await axios.get(`/cat/all`);
         setCategories(res.data);
       } catch (error) {
-        console.log(error);
       }
     };
     fetchCats();
@@ -112,7 +109,6 @@ const Write = () => {
       }
   
     } catch (error) {
-      console.log(error);
       toast.error("an error has occured",options);
     }
   };
@@ -179,7 +175,6 @@ const Write = () => {
             onChange={async (e) => {
               const upldImg = await uploadPostImage(e.target.files[0]);
               setImage(upldImg);
-              // console.log('image ....',image, 'upldImg....',upldImg)
             }}
           />
           <label className="file" htmlFor="file">

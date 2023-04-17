@@ -46,7 +46,6 @@ const Login = () => {
       await login(inputs);
       navigate("/");
     } catch (error) {
-      console.log(error);
       setErr(error.message);
     }
   };

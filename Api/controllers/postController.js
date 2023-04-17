@@ -44,7 +44,6 @@ const addPost = async (req, res) => {
         userInfo.id,
       ];
 
-      console.log(postParams);
       db.query(q, [postParams], async (err, data) => {
         if (err) {
           return res.status(500).json("cant insert the data query 1");
@@ -104,7 +103,6 @@ const getPost = (req, res) => {
 
 const deleteData = (req, res) => {
   const token = req.cookies.access_token;
-  console.log(req.params.id);
   if (!token) return res.status(401).json("Not Authenticated!");
 
   jwt.verify(token, "s3cr3t", (err, userInfo) => {

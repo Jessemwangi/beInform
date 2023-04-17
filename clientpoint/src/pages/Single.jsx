@@ -25,7 +25,6 @@ const Single = () => {
         setPost(data);
      
     } catch (error) {
-      console.log(error)
     }
     }
     getPosts();
@@ -37,7 +36,6 @@ const Single = () => {
         toast.info("Deleted ")
         navigate('/');
       } catch (error) {
-        console.log(error)
       }
      
      }

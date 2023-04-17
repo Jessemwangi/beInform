@@ -1,3 +1,4 @@
+import { Box, LinearProgress } from '@mui/material';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
@@ -6,15 +7,21 @@ import { Link } from 'react-router-dom';
 const Menu = ({catName}) => {
 
     const [posts, setPosts] = useState([]);
+    const [error, setErr] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
  useEffect(() =>{
       const getPosts = async () => {
       
       try {
-          const res = await axios.get(`/posts/all?cat=${catName ? catName :'' }`);
-          setPosts(res.data);
+        setIsLoading(true)
+          const {data} = await axios.get(`/posts/all?cat=${catName ? catName :'' }`);
+          if(data){
+              setPosts(data);
+              setIsLoading(true)
+          }
       } catch (error) {
-        console.log(error)
-        
+        setIsLoading(false)
+        setErr(error.message)
       }
       }
       getPosts();
@@ -22,9 +29,24 @@ const Menu = ({catName}) => {
 
 
     return (
+        isLoading ? (
+            <Box sx={{ width: '100%' }}>
+                  <LinearProgress color="secondary" />
+                </Box>
+                ):
+            (
+              <>
+                {
+                error ? 
+                (
+                <>
+                 <p className="error"> {error.message} </p></>
+                 ) 
+                :
+                (
         <div className='menu '> 
             <h1>other post you may like</h1>
-            {posts.map(post=>(
+            {posts && posts.map(post=>(
                 <div className="post" key={post.id}>
                     <img src={`../posts/images/${post?.image}`} alt="" />
                     <h2>{post.title}</h2>
@@ -32,6 +54,11 @@ const Menu = ({catName}) => {
                 </div>
             ))}
         </div>
+               )
+            }
+            </>
+          
+            )
     );
 };
 

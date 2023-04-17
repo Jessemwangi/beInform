@@ -26,18 +26,14 @@ try {
     else{
       setIsLoading(true)
     }
-  
-    console.log(posts.length)
-  // console.log(res);
+
 } catch (error) {
-	// console.log(error)
   setError(error)
   setIsLoading(false)
 }
 }
 getPosts();
   },[cat, posts.length])
-  console.log(posts.length)
   return (
     isLoading ? (
 <Box sx={{ width: '100%' }}>

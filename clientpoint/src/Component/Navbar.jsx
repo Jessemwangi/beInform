@@ -15,7 +15,6 @@ const Navbar = () => {
         const res = await axios.get(`/cat/all`);
         setCategories(res.data);
       } catch (error) {
-        console.log(error);
       }
     };
     getPosts();
