@@ -35,11 +35,13 @@ const Write = () => {
     draggable: true,
     progress: undefined,
   };
-console.log(currentUser === null)
-  if(currentUser === null){
-    navigate("/login")
-    toast.warning("Login to Start Posting",options)
-  }
+  useEffect(() => {
+    if(currentUser === null){
+      navigate("/login")
+      toast.warning("Login to Start Posting",options)
+    }
+
+  },[currentUser, navigate])
  
   const uploadPostImage = async (img) => {
     setUploadingImage(true);

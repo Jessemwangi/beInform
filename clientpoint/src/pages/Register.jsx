@@ -16,18 +16,26 @@ const Register = () => {
     const handleChange = (e) => {
         
         SetInputs(prev => ({...prev, [e.target.name]:e.target.value}))
-        console.log(inputs);
     }
+
     const registerUser = async (e) =>{
         e.preventDefault();
+        if(inputs.password ==='' || inputs.username ==='' || inputs.email === ''){
+            setErr('wrong registrations inputs');
+            return false;
+          }
      try {
-	  const res =await  axios.post('/auth/register',inputs)
-      navigate('/login');
-	  console.log(res.data);
+	  const {data} =await  axios.post('https://blogapi-j5mi.onrender.com/api/auth/register',inputs)
+      if(data){
+          navigate('/login');
+      }
+      else{
+        setErr('Authentication failed');
+      }
 
 } catch (error) {
 	console.log(error);
-   setErr(error.response.data)
+   setErr(error.message)
  
 }
     }
