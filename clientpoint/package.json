@@ -49,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001/api/"
+  "proxy": "https://blogapi-j5mi.onrender.com/api/"
 }
