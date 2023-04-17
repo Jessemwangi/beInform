@@ -58,7 +58,7 @@ const Navbar = () => {
                 <h6>Home</h6>
               </NavLink>
             </li>
-          {categories.map((cat) => (
+          {categories && categories.map((cat) => (
             <li className="mainMenuList" key={cat.name}>
               <NavLink
                 className="link hundredpx"

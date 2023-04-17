@@ -18,10 +18,17 @@ const getPosts = async () => {
 
 try {
   setIsLoading(true)
-	  const res = await axios.get(`/posts/all${cat}`);
-    setPosts(res.data);
+	  const {data} = await axios.get(`/posts/all${cat}`);
+    if (data.length > 0){
+      setPosts(data);
+      setIsLoading(false)
+    }
+    else{
+      setIsLoading(true)
+    }
+  
+    console.log(posts.length)
   // console.log(res);
-  setIsLoading(false)
 } catch (error) {
 	// console.log(error)
   setError(error)
@@ -29,8 +36,8 @@ try {
 }
 }
 getPosts();
-  },[cat])
-  
+  },[cat, posts.length])
+  console.log(posts.length)
   return (
     isLoading ? (
 <Box sx={{ width: '100%' }}>
@@ -39,14 +46,19 @@ getPosts();
     ):
 (
   <>
-    {error ? 
-    (<>
-     <p className="error"> {error} </p></>) 
+    {
+    error ? 
+    (
+    <>
+     <p className="error"> {error.message} </p></>
+     ) 
     :
     (
     <div className="home">
       <div className="posts">
-        {posts.map((post) => (
+        {posts.length !==0 
+        ?  
+        posts.map((post) => (
           <div className="post" key={post.id}>
             <div className="img">
 
@@ -65,10 +77,14 @@ getPosts();
 <Link to={`/post/${post.id}`}><button>Read more</button></Link>
             </div>
           </div>
-        ))}
+        ))
+      :
+      <div><h1>Be the first to add Informative info !!!!</h1></div>
+      }
       </div>
     </div>
-  )}
+  )
+  }
   </>
 
   )
