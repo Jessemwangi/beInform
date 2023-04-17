@@ -10,9 +10,9 @@ const getauth = (req, res) => {
   res.json("this is auth get");
 };
 
-const regUser = (req, res) => {
+const getUser = (req, res) => {
   // what to do, validate data and user exist
-  const q = "select * from users where email = ? or username = ?";
+  const q = "select * from users where email = $1 or username = $2";
 
   const params = [req.body.email, req.body.username];
  
@@ -26,7 +26,13 @@ try {
     else{
       return res.status(409).json("sorry i cant find the account!!");
     }
+  });
+  
+} catch (error) {
+  console.log(error)
+}
 
+};
     // /// password
     // var salt = bcrypt.genSaltSync(10);
     // var hash = bcrypt.hashSync(req.body.password, salt);
@@ -39,13 +45,7 @@ try {
     //   if (err) return res.status(500).json(err);
     //   return res.status(200).json(req.body.username + " has been create");
     // });
-  });
-  
-} catch (error) {
-  console.log(error)
-}
 
-};
 
 const login = (req, res) => {
   const q = "select * from users where username = ?";
