@@ -1,7 +1,7 @@
 "use strict";
 
-const { msDb } = require("../db/dbconnect");
-const db = msDb;
+const { msDb ,psPool} = require("../db/dbconnect");
+const db = psPool;
 const jwt = require("jsonwebtoken");
 
 const getPosts = (req, res) => {

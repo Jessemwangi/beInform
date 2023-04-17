@@ -1,7 +1,7 @@
 "use strict";
 
 const  {msDb ,psPool,psDb} = require("../db/dbconnect");
-const db = msDb;
+const db = psPool;
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie-parser')

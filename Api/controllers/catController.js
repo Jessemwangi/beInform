@@ -1,7 +1,7 @@
 'use strict';
 
-const {msDb}  = require("../db/dbconnect");
-const db = msDb;
+const {msDb,psPool}  = require("../db/dbconnect");
+const db = psPool;
 const getCats = (req,res) =>{
     const q = 'select * from category';
     db.query(q,(err,data) =>{
