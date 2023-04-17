@@ -10,7 +10,7 @@ const getPosts = (req, res) => {
     let q = "";
     cat
       ? (q =
-          "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = ? order by p.id Desc")
+          "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = $1 order by p.id Desc")
       : (q =
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc");
     db.query(q, cat, (err, data) => {
@@ -31,10 +31,9 @@ const addPost = async (req, res) => {
     if (!token) return res.status(401).json("Not Authenticated!");
     jwt.verify(token, "s3cr3t", (err, userInfo) => {
       if (err) return res.status(403).json("Authentication token Not Valid");
-      const q =
-        "insert into posts (`title`,`description`,`image`,`CatID`,`uid`) VALUES (?)";
+      const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5)";
       const q2 =
-        "insert into postsStatus (`postId`,`statusId`,`createdBy`,`publishedBy`) VALUES (?)";
+        "insert into postsStatus (`postId`,`statusId`,`createdBy`,`publishedBy`) VALUES ($1, $2, $3, $4)";
 
       const postParams = [
         req.body.title,
@@ -60,7 +59,7 @@ const addPost = async (req, res) => {
               if (err) {
                 console.log(err);
                 db.query(
-                  "delete from posts where id=(?)",
+                  "delete from posts where id=($1)",
                   [insertedId],
                   () => {}
                 );
@@ -75,7 +74,7 @@ const addPost = async (req, res) => {
             });
           } else {
             console.log(err);
-            db.query("delete from posts where id=(?)", [insertedId], () => {});
+            db.query("delete from posts where id=($1)", [insertedId], () => {});
             return res
               .status(500)
               .json("Failed to retrieve inserted post ID. reverting back ...");
@@ -90,7 +89,7 @@ const addPost = async (req, res) => {
 
 const getPost = (req, res) => {
   const q =
-    "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = ? order by p.id Desc";
+    "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = $1 order by p.id Desc";
   db.query(q, req.params.id, (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length) return res.status(200).json(data[0]);
@@ -108,7 +107,7 @@ const deleteData = (req, res) => {
   jwt.verify(token, "s3cr3t", (err, userInfo) => {
     if (err) return res.status(403).json("Authentication token Not Valid!");
 
-    const q = "delete from posts where id = ? and uid = ?";
+    const q = "delete from posts where id = $1 and uid = $2";
     db.query(q, [req.params.id, userInfo.id], (err, data) => {
       if (err) {
         return res.status(403).json("You can delete only you post!");
@@ -125,18 +124,21 @@ const putPost = (req, res) => {
 
   jwt.verify(token, "s3cr3t", (err, userInfo) => {
     if (err) return res.status(403).json("Authentication token Not Valid!");
-
-    const q =
-      "update posts set title = ?,description = ?,image = ?,CatID = ? where id=? and uid = ?";
+    const q = "UPDATE posts SET title = $1, description = $2, image = $3, CatID = $4 WHERE id = $5 AND uid = $6";
     const params = [
       req.body.title,
       req.body.description,
       req.body.image,
       req.body.CatID,
+      req.params.id,
+      userInfo.id,
     ];
-    const postId = req.params.id;
-    db.query(q, [...params, postId, userInfo.id], (err, data) => {
-      if (err) return res.status(500).json(err);
+    
+    db.query(q, params, (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Database error" });
+      }
       return res.status(200).json("post updated successful");
     });
   });

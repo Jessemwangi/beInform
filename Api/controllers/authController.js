@@ -10,7 +10,7 @@ const getauth = (req, res) => {
   res.json("this is auth get");
 };
 
-const getUser = (req, res) => {
+const regUser = (req, res) => {
   // what to do, validate data and user exist
   const q = "select * from users where email = $1 or username = $2";
 
@@ -19,20 +19,14 @@ const getUser = (req, res) => {
 try {
    psPool.query(q, params, (err, data) => {
     if (err) return res.status(500).json(err);
-    if (data.rows.length > 0) 
+    if (data.rows.length) 
     {
       return res.status(409).json("Account already in use!!");
     }
     else{
       return res.status(409).json("sorry i cant find the account!!");
     }
-  });
-  
-} catch (error) {
-  console.log(error)
-}
 
-};
     // /// password
     // var salt = bcrypt.genSaltSync(10);
     // var hash = bcrypt.hashSync(req.body.password, salt);
@@ -45,16 +39,22 @@ try {
     //   if (err) return res.status(500).json(err);
     //   return res.status(200).json(req.body.username + " has been create");
     // });
+  });
+  
+} catch (error) {
+  console.log(error)
+}
 
+};
 
 const login = (req, res) => {
-  const q = "select * from users where username = ?";
+  const q = "select * from users where username = $1";
 
   const params = [req.body.username];
 
   db.query(q,[params], (err,data) =>{
     if (err) return res.status(500).json(err)
-    if (data.length === 0) return res.status(404).json('user not found');
+    if (data.rows.length === 0) return res.status(404).json('user not found');
 
     // Checking for matching hashed passsword
     const isValidPassword = bcrypt.compareSync(req.body.password, data[0].password);
