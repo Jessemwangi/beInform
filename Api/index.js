@@ -54,6 +54,7 @@ const file = req.file;
     res.send(`Delete record with id ${id}`);
   });
 
-app.listen(port,process.env.PORT || host, () => console.log(`server is listening on port ${port}! and host : ${host}`))
+app.listen(process.env.PORT ? parseInt(process.env.PORT) : port, host, 
+() => console.log(`server is listening on port ${port}! and host : ${host}`))
 
 
