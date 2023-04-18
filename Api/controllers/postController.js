@@ -32,8 +32,7 @@ const addPost = async (req, res) => {
     jwt.verify(token, "s3cr3t", (err, userInfo) => {
       if (err) return res.status(403).json("Authentication token Not Valid");
       const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5) RETURNING id";
-      const q2 =
-        "insert into postsStatus (`postId`,`statusId`,`createdBy`,`publishedBy`) VALUES ($1, $2, $3, $4)";
+      const q2 = "INSERT INTO postsStatus (postId, statusId, createdBy, publishedBy) VALUES ($1, $2, $3, $4)";
 
       const postParams = [
         req.body.title,
