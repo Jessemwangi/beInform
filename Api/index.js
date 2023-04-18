@@ -3,11 +3,24 @@ const {port,host} = require('./serverConfig.json')
 const express = require('express')
 const cookieparser = require('cookie-parser')
 const multer  = require('multer')
+const cors = require('cors')
 
 const app = express()
 
 app.use(express.json())
 app.use(cookieparser())
+
+const whitelist = ['https://beinformed.onrender.com', 'http://localhost:3000'];
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+app.use(cors(corsOptions))
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
