@@ -9,13 +9,13 @@ export const AuthContextProvider = ({children}) =>{
     );
 
     const login = async (inputs)=> {
-        const res = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/login`,inputs);
-        serCurrentUser(res.data);
+        const {data} = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/login`,inputs, { withCredentials: true });
+        serCurrentUser(data);
 
     };
 
     const logout = async ()=> {
-        await axios.post(`${process.env.REACT_APP_BASE_URL}auth/logout`);
+        await axios.post(`${process.env.REACT_APP_BASE_URL}auth/logout`, { withCredentials: true });
         serCurrentUser(null);
 
     };

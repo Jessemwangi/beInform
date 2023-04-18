@@ -48,7 +48,7 @@ const Write = () => {
       const formData = new FormData();
       formData.append("file", img);
       toast.info("Uploading image",options)
-      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}upload/posts/images`, formData);
+      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}upload/posts/images`, formData,{withCredentials:true});
       setUploadingImage(false);
       return data;
     } catch (error) {
@@ -59,7 +59,7 @@ const Write = () => {
   useEffect(() => {
     const fetchCats = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}cat/all`);
+        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}cat/all`,{withCredentials:true});
         setCategories(res.data);
       } catch (error) {
       }
@@ -91,9 +91,9 @@ const Write = () => {
       let response, result;
   
       if (state) {
-        result = await axios.put(`${process.env.REACT_APP_BASE_URL}posts/${state.id}`, updateData)
+        result = await axios.put(`${process.env.REACT_APP_BASE_URL}posts/${state.id}`, updateData,{withCredentials:true})
       } else {
-        result = await axios.post(`${process.env.REACT_APP_BASE_URL}posts/`, postData);
+        result = await axios.post(`${process.env.REACT_APP_BASE_URL}posts/`, postData, { withCredentials: true });
       }
   
       response = {

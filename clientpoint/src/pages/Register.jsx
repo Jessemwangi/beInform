@@ -30,7 +30,7 @@ const Register = () => {
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}auth/register`,
-        inputs
+        inputs,{withCredentials:true}
       );
       if (data) {
         navigate("/login");

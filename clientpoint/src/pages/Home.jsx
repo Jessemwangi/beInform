@@ -20,7 +20,7 @@ const getPosts = async () => {
 
 try {
   setIsLoading(true)
-	  const {data} = await axios.get(url);
+	  const {data} = await axios.get(url, { withCredentials: true });
 
     setIsLoading(false)
     if (data ){

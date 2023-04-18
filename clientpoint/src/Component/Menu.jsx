@@ -14,10 +14,10 @@ const Menu = ({catName}) => {
       
       try {
         setIsLoading(true)
-          const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}posts/all?cat=${catName ? catName :'' }`);
+          const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}posts/all?cat=${catName ? catName :'' }`, { withCredentials: true });
           if(data){
               setPosts(data);
-              setIsLoading(true)
+              setIsLoading(false)
           }
       } catch (error) {
         setIsLoading(false)
