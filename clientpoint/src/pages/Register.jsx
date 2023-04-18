@@ -29,7 +29,7 @@ const Register = () => {
     }
     try {
       const { data } = await axios.post(
-        "https://blogapi-j5mi.onrender.com/api/auth/register",
+        `${process.env.ApiHost}/auth/register`,
         inputs
       );
       if (data) {

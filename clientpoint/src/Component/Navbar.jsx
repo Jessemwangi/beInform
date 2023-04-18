@@ -12,7 +12,7 @@ const Navbar = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get(`/cat/all`);
+        const res = await axios.get(`${process.env.ApiHost}/cat/all`);
         setCategories(res.data);
       } catch (error) {
       }

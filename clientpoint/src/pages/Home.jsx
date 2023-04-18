@@ -18,7 +18,7 @@ const getPosts = async () => {
 
 try {
   setIsLoading(true)
-	  const {data} = await axios.get(`/posts/all${cat}`);
+	  const {data} = await axios.get(`${process.env.ApiHost}/posts/all${cat}`);
     if (data.length > 0){
       setPosts(data);
       setIsLoading(false)

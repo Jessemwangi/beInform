@@ -48,7 +48,7 @@ const Write = () => {
       const formData = new FormData();
       formData.append("file", img);
       toast.info("Uploading image",options)
-      const { data } = await axios.post("/upload/posts/images", formData);
+      const { data } = await axios.post(`${process.env.ApiHost}/upload/posts/images`, formData);
       setUploadingImage(false);
       return data;
     } catch (error) {
@@ -59,7 +59,7 @@ const Write = () => {
   useEffect(() => {
     const fetchCats = async () => {
       try {
-        const res = await axios.get(`/cat/all`);
+        const res = await axios.get(`${process.env.ApiHost}/cat/all`);
         setCategories(res.data);
       } catch (error) {
       }
@@ -91,9 +91,9 @@ const Write = () => {
       let response, result;
   
       if (state) {
-        result = await axios.put(`/posts/${state.id}`, updateData)
+        result = await axios.put(`${process.env.ApiHost}/posts/${state.id}`, updateData)
       } else {
-        result = await axios.post(`/posts/`, postData);
+        result = await axios.post(`${process.env.ApiHost}/posts/`, postData);
       }
   
       response = {
