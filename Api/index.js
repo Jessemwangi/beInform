@@ -10,7 +10,7 @@ const app = express()
 app.use(express.json())
 app.use(cookieparser())
 
-const whitelist = ['https://beinformed.onrender.com', 'http://localhost:3000','http://localhost:3003'];
+const whitelist = ['https://beinformed.onrender.com', 'http://localhost:3000','http://localhost:3003','https://blogapi-j5mi.onrender.com'];
 const corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -21,7 +21,8 @@ const corsOptions = {
   },
   credentials: true
 };
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))  // enable fo local
+app.use(cors({ credentials: true}))
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
