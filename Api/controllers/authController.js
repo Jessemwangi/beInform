@@ -46,28 +46,35 @@ try {
 };
 
 const login = (req, res) => {
-  const q = "select * from users where username = $1";
+  try {
+    const q = "select * from users where username = $1";
+    if(!req.body)
+    {return res.status(204).json('empty username and password provided')}
+    
+      const params = [req.body.username];
+    
+      db.query(q,params, (err,data) =>{
+        if (err) return res.status(500).json(err)
+        if (data.rowCount === 0) return res.status(404).json('user not found');
+        // Checking for matching hashed passsword
+        const isValidPassword = bcrypt.compareSync(req.body.password, data.rows[0].password);
+        if (!isValidPassword){ return res.status(403).json('Wrong username or password');}
+    const token = jwt.sign({id:data.rows[0].id},"s3cr3t");
+    console.log(token)
+    const {password,...other} = data.rows[0];
+    
+    res.cookie("access_token",token,{
+        httpOnly:true,
+        Secure:true,
+    
+    }).status(200).json(other)
+    
+      })
+  } catch (error) {
+    res.status(500).json(error.message)
+    console.log(error)
+  }
 
-  const params = [req.body.username];
-
-  db.query(q,params, (err,data) =>{
-    if (err) return res.status(500).json(err)
-    if (data.rows.length === 0) return res.status(404).json('user not found');
-
-    // Checking for matching hashed passsword
-    const isValidPassword = bcrypt.compareSync(req.body.password, data.rows[0].password);
-    if (!isValidPassword) return res.status(400).json('Wrong username or password');
-const token = jwt.sign({id:data.rows[0].id},"s3cr3t");
-const {password,...other} = data.rows[0];
-  
-res.cookie("access_token",token,{
-    httpOnly:true,
-    Secure:true,
-
-}).status(200).json(other)
-
-
-  })
 };
  
 const logout = (req, res) => {

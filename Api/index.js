@@ -20,7 +20,10 @@ const corsOptions = {
     }
   }
 };
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3003',
+  credentials: true
+}))
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

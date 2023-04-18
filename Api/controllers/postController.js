@@ -13,7 +13,7 @@ const getPosts = (req, res) => {
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = $1 order by p.id Desc")
       : (q =
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc");
-          psPool.query(q, [cat], (err, data) => {
+          psPool.query(q, cat ? [cat] : '', (err, data) => {
             if(err){
               console.log(err)
              return res.status(500).json(err);
@@ -93,15 +93,14 @@ console.log(err)
 
 const getPost = (req, res) => {
   try {
-    console.log('1234567')
     const q =
     "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = $1 order by p.id Desc";
-  db.query(q, req.params.id, (err, data) => {
+  db.query(q, [req.params.id], (err, data) => {
     if (err){
 console.log(err)
 return res.status(500).json(err);
     } 
-    if (data.rows.length) return res.status(200).json(data[0]);
+     res.status(200).json(data.rows[0]);
   });
   } catch (error) {
     console.log(error)
