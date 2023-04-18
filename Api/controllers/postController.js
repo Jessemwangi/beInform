@@ -13,7 +13,7 @@ const getPosts = (req, res) => {
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = $1 order by p.id Desc")
       : (q =
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc");
-          psPool.query(q, cat, (err, data) => {
+          psPool.query(q, [cat], (err, data) => {
             if(err){
               console.log(err)
              return res.status(500).json(err);
@@ -26,15 +26,17 @@ const getPosts = (req, res) => {
 };
 
 const addPost = async (req, res) => {
-  console.log(req.body)
+
   try {
     const token = req.cookies.access_token;
+    console.log("token ....", token)
     if (!token) return res.status(401).json("Not Authenticated!");
     jwt.verify(token, "s3cr3t", (err, userInfo) => {
       if (err){
 console.log(err)
       return res.status(403).json("Authentication token Not Valid");
       }
+      console.log("userInfo... ",userInfo)
       const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5) RETURNING id";
       const q2 = "INSERT INTO postsStatus (postId, statusId, createdBy, publishedBy) VALUES ($1, $2, $3, $4)";
 
@@ -64,22 +66,18 @@ console.log(err)
               if (err) {
                 console.log(err);
                 db.query(
-                  "delete from posts where id=($1)",
-                  insertedId,
+                  "DELETE FROM posts WHERE id = ($1)",
+                  [insertedId],
                   () => {}
                 );
-                return res
-                  .status(500)
-                  .json(
-                    "An error occured creating post status details, reverted back ...."
-                  );
+                return res.status(500).json("An error occured creating post status details, reverted back ....");
               } else {
                 return res.status(200).json("Post Successful Created");
               }
             });
           } else {
             console.log(err);
-            db.query("delete from posts where id=($1)", insertedId, () => {});
+            db.query("delete from posts where id=($1)", [insertedId], () => {});
             return res
               .status(500)
               .json("Failed to retrieve inserted post ID. reverting back ...");
