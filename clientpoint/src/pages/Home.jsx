@@ -16,12 +16,15 @@ const Home = () => {
   useEffect(() =>{
 const getPosts = async () => {
 
+  const url =`${process.env.REACT_APP_ApiHost}/posts/all${cat}`
+  console.log(url)
 try {
   setIsLoading(true)
-	  const {data} = await axios.get(`${process.env.ApiHost}/posts/all${cat}`);
+	  const {data} = await axios.get(url);
+    setIsLoading(false)
     if (data.length > 0){
       setPosts(data);
-      setIsLoading(false)
+      
     }
     else{
       setIsLoading(true)

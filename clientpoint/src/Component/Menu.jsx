@@ -14,7 +14,7 @@ const Menu = ({catName}) => {
       
       try {
         setIsLoading(true)
-          const {data} = await axios.get(`${process.env.ApiHost}/posts/all?cat=${catName ? catName :'' }`);
+          const {data} = await axios.get(`${process.env.REACT_APP_ApiHost}/posts/all?cat=${catName ? catName :'' }`);
           if(data){
               setPosts(data);
               setIsLoading(true)

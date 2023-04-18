@@ -29,7 +29,7 @@ const Register = () => {
     }
     try {
       const { data } = await axios.post(
-        `${process.env.ApiHost}/auth/register`,
+        `${process.env.REACT_APP_ApiHost}/auth/register`,
         inputs
       );
       if (data) {
