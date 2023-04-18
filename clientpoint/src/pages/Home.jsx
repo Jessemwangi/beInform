@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() =>{
 const getPosts = async () => {
 
-  const url =`${process.env.REACT_APP_BASE_URL}/posts/all${cat}`
+  const url =`${process.env.REACT_APP_BASE_URL}posts/all${cat}`
   console.log(url)
 try {
   setIsLoading(true)

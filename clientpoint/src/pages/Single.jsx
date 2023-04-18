@@ -21,7 +21,7 @@ const Single = () => {
     const getPosts = async () => {
     
     try {
-        const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${postId}`);
+        const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}posts/${postId}`);
         setPost(data);
      
     } catch (error) {
@@ -32,7 +32,7 @@ const Single = () => {
 
      const handleImageDelete = async() =>{
       try {
-        await axios.delete(`${process.env.REACT_APP_BASE_URL}/posts/${postId}`)
+        await axios.delete(`${process.env.REACT_APP_BASE_URL}posts/${postId}`)
         toast.info("Deleted ")
         navigate('/');
       } catch (error) {
