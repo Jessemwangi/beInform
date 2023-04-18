@@ -26,11 +26,15 @@ const getPosts = (req, res) => {
 };
 
 const addPost = async (req, res) => {
+  console.log(req.body)
   try {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json("Not Authenticated!");
     jwt.verify(token, "s3cr3t", (err, userInfo) => {
-      if (err) return res.status(403).json("Authentication token Not Valid");
+      if (err){
+console.log(err)
+      return res.status(403).json("Authentication token Not Valid");
+      }
       const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5) RETURNING id";
       const q2 = "INSERT INTO postsStatus (postId, statusId, createdBy, publishedBy) VALUES ($1, $2, $3, $4)";
 
@@ -44,10 +48,12 @@ const addPost = async (req, res) => {
 
       db.query(q, postParams, async (err, data) => {
         if (err) {
+          console.log(err)
           return res.status(500).json("cannot insert the data query 1");
-        } else {
+        }  
+        console.log(data.rows)
           const insertedId =  data.rows[0].id;
-          if (insertedId > 0) {
+          if (insertedId ) {
             const postStatusParams = [
               insertedId,
               req.body.statusId,
@@ -59,7 +65,7 @@ const addPost = async (req, res) => {
                 console.log(err);
                 db.query(
                   "delete from posts where id=($1)",
-                  [insertedId],
+                  insertedId,
                   () => {}
                 );
                 return res
@@ -78,7 +84,7 @@ const addPost = async (req, res) => {
               .status(500)
               .json("Failed to retrieve inserted post ID. reverting back ...");
           }
-        }
+        
       });
     });
   } catch (error) {
