@@ -25,7 +25,7 @@ const getPosts = (req, res) => {
   }
 };
 
-const addPost = async (req, res) => {
+const addPost = (req, res) => {
   const postParams = [
     req.body.title,
     req.body.description,
