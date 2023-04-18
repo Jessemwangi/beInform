@@ -25,15 +25,9 @@ const getPosts = (req, res) => {
   }
 };
 
-const addPost = (req, res) => {
-  const postParams = [
-    req.body.title,
-    req.body.description,
-    req.body.image,
-    req.body.CatID,
-    userInfo.id,
-  ];
-  console.log(postParams)
+const addPost =  (req, res) => {
+
+  console.log(req.body)
   try {
     const token = req.cookies.access_token;
     console.log("token ....", token)
@@ -47,7 +41,13 @@ console.log(err)
       const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5) RETURNING id";
       const q2 = "INSERT INTO postsStatus (postId, statusId, createdBy, publishedBy) VALUES ($1, $2, $3, $4)";
 
-
+      const postParams = [
+        req.body.title,
+        req.body.description,
+        req.body.image,
+        req.body.CatID,
+        userInfo.id,
+      ];
 
       db.query(q, postParams, async (err, data) => {
         if (err) {
