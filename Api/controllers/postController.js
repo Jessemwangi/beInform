@@ -13,12 +13,12 @@ const getPosts = (req, res) => {
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = $1 order by p.id Desc")
       : (q =
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc");
-    db.query(q, cat, (err, data) => {
-      if (data.length) {
-        res.status(200).json(data);
-      } else {
-        res.status(500).json(err);
-      }
+          psPool.query(q, cat, (err, data) => {
+            if(err){
+              console.log(err)
+             return res.status(500).json(err);
+            }
+        res.status(200).json(data.rows);
     });
   } catch (error) {
     res.status(500).json(error);
@@ -31,7 +31,7 @@ const addPost = async (req, res) => {
     if (!token) return res.status(401).json("Not Authenticated!");
     jwt.verify(token, "s3cr3t", (err, userInfo) => {
       if (err) return res.status(403).json("Authentication token Not Valid");
-      const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5)";
+      const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5) RETURNING id";
       const q2 =
         "insert into postsStatus (`postId`,`statusId`,`createdBy`,`publishedBy`) VALUES ($1, $2, $3, $4)";
 
@@ -43,11 +43,11 @@ const addPost = async (req, res) => {
         userInfo.id,
       ];
 
-      db.query(q, [postParams], async (err, data) => {
+      db.query(q, postParams, async (err, data) => {
         if (err) {
-          return res.status(500).json("cant insert the data query 1");
+          return res.status(500).json("cannot insert the data query 1");
         } else {
-          const insertedId = await data.insertId;
+          const insertedId =  data.rows[0].id;
           if (insertedId > 0) {
             const postStatusParams = [
               insertedId,
@@ -55,7 +55,7 @@ const addPost = async (req, res) => {
               userInfo.id,
               userInfo.id,
             ];
-            db.query(q2, [postStatusParams], (err, data) => {
+            db.query(q2, postStatusParams, (err, data) => {
               if (err) {
                 console.log(err);
                 db.query(
@@ -74,7 +74,7 @@ const addPost = async (req, res) => {
             });
           } else {
             console.log(err);
-            db.query("delete from posts where id=($1)", [insertedId], () => {});
+            db.query("delete from posts where id=($1)", insertedId, () => {});
             return res
               .status(500)
               .json("Failed to retrieve inserted post ID. reverting back ...");
@@ -88,12 +88,21 @@ const addPost = async (req, res) => {
 };
 
 const getPost = (req, res) => {
-  const q =
+  try {
+    console.log('1234567')
+    const q =
     "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = $1 order by p.id Desc";
   db.query(q, req.params.id, (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length) return res.status(200).json(data[0]);
+    if (err){
+console.log(err)
+return res.status(500).json(err);
+    } 
+    if (data.rows.length) return res.status(200).json(data[0]);
   });
+  } catch (error) {
+    console.log(error)
+  }
+
 };
 
 // const deletePost = (req, res) => {
