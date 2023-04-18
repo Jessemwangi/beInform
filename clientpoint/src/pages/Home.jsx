@@ -17,12 +17,13 @@ const Home = () => {
 const getPosts = async () => {
 
   const url =`${process.env.REACT_APP_BASE_URL}posts/all${cat}`
-  console.log(url)
+
 try {
   setIsLoading(true)
 	  const {data} = await axios.get(url);
+
     setIsLoading(false)
-    if (data.length > 0){
+    if (data ){
       setPosts(data);
       
     }
