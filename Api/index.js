@@ -10,17 +10,16 @@ const app = express()
 app.use(express.json())
 app.use(cookieparser())
 
-const allowedOrigins = ['https://beinformed.onrender.com', 'ttps://blogapi-j5mi.onrender.com', 'http://localhost:3001','http://localhost:3003'];
+const allowedOrigins = ['https://beinformed.onrender.com', 'https://blogapi-j5mi.onrender.com', 'http://localhost:3001','http://localhost:3003'];
 
-// (origin, callback) => {
-//   if (!origin || allowedOrigins.includes(origin)) {
-//     callback(null, true);
-//   } else {
-//     callback(new Error('Not allowed by CORS'));
-//   }
-// },
 app.use(cors({
-  origin:allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 

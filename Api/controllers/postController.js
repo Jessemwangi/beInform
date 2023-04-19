@@ -18,7 +18,7 @@ const getPosts = (req, res) => {
               console.log(err)
              return res.status(500).json(err);
             }
-        res.cookies("home_token","token cookies view",{
+        res.cookie("home_token","token cookies view",{
           httpOnly:true,
           Secure:true,
           sameSite: 'none',
