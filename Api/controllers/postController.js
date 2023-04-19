@@ -21,7 +21,7 @@ const getPosts = (req, res) => {
         res.cookie("home_token","token cookies view",{
           httpOnly:true,
           secure:true,
-          sameSite: 'none',
+          sameSite: 'none'
       
       }).status(200).json(data.rows);
     });
