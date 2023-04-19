@@ -10,20 +10,6 @@ const app = express()
 app.use(express.json())
 app.use(cookieparser())
 
-const whitelist = ['https://beinformed.onrender.com', 'https://blogapi-j5mi.onrender.com'];
-const corsOptions = {
-  origin: function(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-};
-app.use(cors()) 
-
-
 const allowedOrigins = ['https://beinformed.onrender.com', 'ttps://blogapi-j5mi.onrender.com', 'localhost:3001','http://localhost:3003'];
 
 app.use(cors({
