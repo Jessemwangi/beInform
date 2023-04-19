@@ -4,7 +4,6 @@ const  {msDb ,psPool,psDb} = require("../db/dbconnect");
 const db = psPool;
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-const cookie = require('cookie-parser');
 
 const getauth = (req, res) => {
   res.json("this is auth get");
@@ -66,7 +65,7 @@ const login = (req, res) => {
     res.cookie("access_token",token,{
         httpOnly:true,
         Secure:true,
-        sameSite:"none",
+        sameSite: 'none',
     
     }).status(200).json(other)
     

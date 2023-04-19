@@ -18,7 +18,12 @@ const getPosts = (req, res) => {
               console.log(err)
              return res.status(500).json(err);
             }
-        res.status(200).json(data.rows);
+        res.cookies("home_token","token cookies view",{
+          httpOnly:true,
+          Secure:true,
+          sameSite: 'none',
+      
+      }).status(200).json(data.rows);
     });
   } catch (error) {
     res.status(500).json(error);
