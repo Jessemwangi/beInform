@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer>
              <img src={logo} alt="Logo"  />
-             <span>Made to inspire and write; &copy: 2023</span>
+             <span style={{"color":"white"}}>Made to inspire and write; &copy: 2023</span>
         </footer>
     );
 };

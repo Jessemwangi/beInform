@@ -49,6 +49,7 @@ const Write = () => {
       formData.append("file", img);
       toast.info("Uploading image",options)
       const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}upload/posts/images`, formData,{withCredentials:true});
+      console.log(data)
       setUploadingImage(false);
       return data;
     } catch (error) {

@@ -71,9 +71,9 @@ const Navbar = () => {
         </ul>
         <div className="actionArea"> 
         {currentUser ? (
-          <span onClick={logout} className="userDisplay">
-            <small>Hi {currentUser?.username}</small> <br />
-            logout{" "}
+          <span onClick={logout} className="writeD userDisplay">
+            <small>Hi {currentUser?.username}</small> 
+           <span>logout{" "}</span> 
           </span>
         ) : (
           <NavLink className="write userDisplay" to="./login">

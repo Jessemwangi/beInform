@@ -81,6 +81,24 @@ transition: 0.7s ease all;
     transition: 1s ease all;
 }
 
+.writeD{
+    cursor: pointer;
+    border: 1px black solid;
+    border-radius: 10px;
+    width: 100px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+    transition: 1s ease all;
+}
+.writeD:hover{
+    background-color: #fff;
+    color: #68317E;
+}
+
 .write:hover {
     width: 63px;
     height: 63px;
