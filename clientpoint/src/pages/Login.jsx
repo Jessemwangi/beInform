@@ -42,13 +42,11 @@ const Login = () => {
       return false;
     }
     try {
-     const user = await login(inputs);
-     
-     console.log(user)
+      await login(inputs);
+
   navigate("/");
     } catch (error) {
       setErr('wrong username or password');
-      console.log(error)
     }
   };
   return (
