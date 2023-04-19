@@ -20,7 +20,7 @@ const getPosts = (req, res) => {
             }
         res.cookie("home_token","token cookies view",{
           httpOnly:true,
-          Secure:true,
+          secure:true,
           sameSite: 'none',
       
       }).status(200).json(data.rows);

@@ -64,7 +64,7 @@ const login = (req, res) => {
     
     res.cookie("access_token",token,{
         httpOnly:true,
-        Secure:true,
+        secure:true,
         sameSite: 'none',
     
     }).status(200).json(other)
@@ -80,7 +80,7 @@ const login = (req, res) => {
 const logout = (req, res) => {
   res.clearCookie("access_token",{
     sameSite:"none",
-    Secure:true,
+    secure:true,
     httpOnly:true,
 
   }).status(200).json("user logout")
