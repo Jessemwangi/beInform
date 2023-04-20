@@ -10,7 +10,7 @@ const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const catRoutes = require("./routes/cat");
 const postGresRoute = require("./routes/postgres");
-const { uploadFile } = require( "./utilities/utilities" );
+const { uploadFile, deleteFile } = require( "./utilities/utilities" );
 
 
 // const {
@@ -79,9 +79,17 @@ app.use("/api/postgres", postGresRoute);
 
 app.post("/api/upload/posts/images", upload.single("file"),uploadFile);
 
-app.delete("/products/:id", function (req, res) {
-  const { id } = req.params;
-  res.send(`Delete record with id ${id}`);
+app.delete("/api/delete/img/:name", async (req, res) =>{
+  const filename = req.params.name
+  console.log(filename)
+  try {
+     await deleteFile(filename)
+     res.status(200).json(`${filename}  Deleted`);
+  } catch (error) {
+    res.status(500).json('Error Deleting File')
+    console.log(error)
+  }
+ 
 });
 
 app.listen(process.env.PORT ? parseInt(process.env.PORT) : port, host, () =>

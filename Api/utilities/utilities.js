@@ -84,13 +84,13 @@ const   getObjectSignedUrl = async (key) =>{
 
  const deleteFile = async (fileName) => {
     const deleteParams = {
-      Bucket: bucketName,
+      Bucket: Storage,
       Key: fileName,
     }
   
     return s3.send(new DeleteObjectCommand(deleteParams));
   }
 
-module.exports = {uploadFile,generateUniqueKey,getImageUrl}
+module.exports = {uploadFile,generateUniqueKey,getImageUrl,deleteFile}
 
 

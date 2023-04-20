@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -114,6 +114,20 @@ const Write = () => {
     }
   };
   
+  const deleteImage = async () =>{
+   try
+   {
+    console.log(image.imagename)
+     const {data} = await axios.delete(`${process.env.REACT_APP_BASE_URL}delete/img/${image.imagename}`,{},{withCredentials:true});
+     toast.success(data)
+     console.log(data)
+     setImage('');
+   } 
+   catch(error){
+    toast.error("Error")
+    console.log(error.message)
+   }
+  }
   return (
     <div className="add">
        <ToastContainer />
@@ -158,6 +172,10 @@ const Write = () => {
               alt="Feature"
               className="postImage"
             />
+<div style={{"display":"flex", "flexDirection":"row-reverse"}}>
+
+            <Button style={{"background":"red", "marginTop":"1rem"}} onClick={deleteImage}>Delete image</Button>
+</div>
           </div>
         )}
         <div className="item">
