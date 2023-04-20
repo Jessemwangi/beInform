@@ -46,7 +46,7 @@ const Single = () => {
      
       <div className="content">
         <img
-          src={`../posts/images/${post?.image}`}
+          src={post?.image}
           alt="imageone"
         />
         <div className="user">
