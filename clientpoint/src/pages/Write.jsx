@@ -154,7 +154,7 @@ const Write = () => {
         {image && (
           <div className="item">
             <img
-              src={`../posts/images/${image}`}
+              src={image}
               alt="Feature"
               className="postImage"
             />

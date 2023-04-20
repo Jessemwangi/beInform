@@ -62,7 +62,7 @@ getPosts();
           <div className="post" key={post.id}>
             <div className="img">
 
-               <img src={`../posts/images/${post?.image}`} alt={post.titles} />
+               <img src={`${post?.image}`} alt={post.titles} />
             </div>
             <div className="content">
                 <Link to={`/post/${post.id}`}
