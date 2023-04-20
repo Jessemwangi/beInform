@@ -1,10 +1,12 @@
 "use strict";
-
 const { msDb ,psPool} = require("../db/dbconnect");
 const db = psPool;
 const jwt = require("jsonwebtoken");
+const { getImageUrl } = require( "../utilities/utilities" );
+let Returndata;
 
-const getPosts = (req, res) => {
+const getPosts =  (req, res) => {
+
   try {
     const cat = req.query.cat;
     let q = "";
@@ -13,17 +15,24 @@ const getPosts = (req, res) => {
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = $1 order by p.id Desc")
       : (q =
           "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc");
-          psPool.query(q, cat ? [cat] : '', (err, data) => {
+          psPool.query(q, cat ? [cat] : '', async (err, data) => {
             if(err){
               console.log(err)
              return res.status(500).json(err);
             }
+            Returndata=[];
+            
+            for (let post of data.rows) {
+              const imageurl = await getImageUrl(post.image)
+              Returndata.push({...post, image:imageurl})
+            }
+// console.log(Returndata);
         res.cookie("home_token","token cookies view",{
           httpOnly:true,
           secure:true,
           sameSite: 'none'
       
-      }).status(200).json(data.rows);
+      }).status(200).json(Returndata);
     });
   } catch (error) {
     res.status(500).json(error);

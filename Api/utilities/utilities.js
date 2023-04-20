@@ -2,7 +2,7 @@ require("dotenv").config();
 const sharp = require('sharp'); // resize images
 const {
     S3Client,GetObjectCommand,
-    PutObjectCommand,
+    PutObjectCommand,DeleteObjectCommand,
   } = require("@aws-sdk/client-s3");
   const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
@@ -47,12 +47,50 @@ const getObjectParams = {
 }
       const command2 = new GetObjectCommand(getObjectParams);
 const url = await getSignedUrl(s3, command2, { expiresIn: 3600 });
-
-      res.status(200).json(url);
+const imageupload ={
+    url,
+    imagename:getObjectParams.Key
+}
+      res.status(200).json(imageupload);
     } catch (error) {
       res.status(500).json(error);
       console.log(error)
     }
 }
 
-module.exports = {uploadFile,generateUniqueKey}
+
+const getImageUrl =async (name)=>{
+   
+    const command2 = new GetObjectCommand({Bucket: Storage,Key:name});
+const imageUrl = await getSignedUrl(s3, command2, { expiresIn: 10 });
+ console.log(imageUrl)
+    return imageUrl;
+}
+
+const   getObjectSignedUrl = async (key) =>{
+    const params = {
+      Bucket: bucketName,
+      Key: key
+    }
+  
+    // https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/
+    const command = new GetObjectCommand(params);
+    const seconds = 60
+    const url = await getSignedUrl(s3, command, { expiresIn: seconds });
+  
+    return url
+  }
+
+
+ const deleteFile = async (fileName) => {
+    const deleteParams = {
+      Bucket: bucketName,
+      Key: fileName,
+    }
+  
+    return s3.send(new DeleteObjectCommand(deleteParams));
+  }
+
+module.exports = {uploadFile,generateUniqueKey,getImageUrl}
+
+

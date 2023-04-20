@@ -75,7 +75,7 @@ const Write = () => {
         title,
         description: value,
         CatID,
-        image: image ? image : state?.image,
+        image: image ? image.imagename : state?.image,
         UpdateOn: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
         statusId:status_Id,
       };
@@ -84,7 +84,7 @@ const Write = () => {
         title,
         description: value,
         CatID,
-        image: image ? image : "",
+        image: image ? image.imagename : "",
         statusId:status_Id,
         publishedOn:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
       };
@@ -154,7 +154,7 @@ const Write = () => {
         {image && (
           <div className="item">
             <img
-              src={image}
+              src={image.url}
               alt="Feature"
               className="postImage"
             />
