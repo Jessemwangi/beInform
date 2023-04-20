@@ -24,7 +24,7 @@ const getPosts =  (req, res) => {
             
             for (let post of data.rows) {
               const imageurl = await getImageUrl(post.image)
-              Returndata.push({...post, image:imageurl})
+              Returndata.push({...post, imageurl:imageurl})
             }
 // console.log(Returndata);
         res.cookie("home_token","token cookies view",{
@@ -109,12 +109,13 @@ const getPost = (req, res) => {
   try {
     const q =
     "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = $1 order by p.id Desc";
-  db.query(q, [req.params.id], (err, data) => {
+  db.query(q, [req.params.id], async (err, data) => {
     if (err){
 console.log(err)
 return res.status(500).json(err);
     } 
-     res.status(200).json(data.rows[0]);
+    const imageurl = await getImageUrl(data.rows[0].image)
+     res.status(200).json({...data.rows[0],imageurl} );
   });
   } catch (error) {
     console.log(error)

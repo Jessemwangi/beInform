@@ -46,10 +46,10 @@ const getObjectParams = {
   Key:params.Key,
 }
       const command2 = new GetObjectCommand(getObjectParams);
-const url = await getSignedUrl(s3, command2, { expiresIn: 3600 });
+const imageurl = await getSignedUrl(s3, command2, { expiresIn: 3600 });
 const imageupload ={
-    url,
-    imagename:getObjectParams.Key
+  imageurl,
+    image:getObjectParams.Key
 }
       res.status(200).json(imageupload);
     } catch (error) {
@@ -62,7 +62,7 @@ const imageupload ={
 const getImageUrl =async (name)=>{
    
     const command2 = new GetObjectCommand({Bucket: Storage,Key:name});
-const imageUrl = await getSignedUrl(s3, command2, { expiresIn: 10 });
+const imageUrl = await getSignedUrl(s3, command2, { expiresIn: 3600 });
  console.log(imageUrl)
     return imageUrl;
 }
@@ -75,7 +75,7 @@ const   getObjectSignedUrl = async (key) =>{
   
     // https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/
     const command = new GetObjectCommand(params);
-    const seconds = 60
+    const seconds = 3600
     const url = await getSignedUrl(s3, command, { expiresIn: seconds });
   
     return url

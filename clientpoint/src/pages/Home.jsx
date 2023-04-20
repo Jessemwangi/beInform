@@ -21,7 +21,7 @@ const getPosts = async () => {
 try {
   setIsLoading(true)
 	  const {data} = await axios.get(url, { withCredentials: true });
-
+console.log(data)
     setIsLoading(false)
     if (data ){
       setPosts(data);
@@ -62,7 +62,7 @@ getPosts();
           <div className="post" key={post.id}>
             <div className="img">
 
-               <img src={post?.image} alt={post.titles} />
+               <img src={post?.imageurl} alt={post.titles} />
             </div>
             <div className="content">
                 <Link to={`/post/${post.id}`}

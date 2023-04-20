@@ -13,11 +13,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Write = () => {
   const state = useLocation().state;
-
+console.log(state)
   const [value, setValue] = useState(state?.description || "");
   const [title, setTitle] = useState(state?.title || "");
-  const [CatID, setCat] = useState(state?.CatID || "");
-  const [image, setImage] = useState(state?.image || "");
+  const [CatID, setCat] = useState(state?.catid || "");
+  const [postImage, setPostImage] = useState(state ? {
+     imageurl:state.imageurl,
+    image:state.image
+  } : "");
   const [uploadingImage, setUploadingImage] = useState(false);
 
   const [categories, setCategories] = useState([]);
@@ -49,7 +52,7 @@ const Write = () => {
       formData.append("file", img);
       toast.info("Uploading image",options)
       const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}upload/posts/images`, formData,{withCredentials:true});
-      console.log(data)
+   
       setUploadingImage(false);
       return data;
     } catch (error) {
@@ -75,7 +78,7 @@ const Write = () => {
         title,
         description: value,
         CatID,
-        image: image ? image.imagename : state?.image,
+        image: postImage ? postImage.image : state?.image,
         UpdateOn: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
         statusId:status_Id,
       };
@@ -84,7 +87,7 @@ const Write = () => {
         title,
         description: value,
         CatID,
-        image: image ? image.imagename : "",
+        image: postImage ? postImage.image : "",
         statusId:status_Id,
         publishedOn:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
       };
@@ -117,11 +120,9 @@ const Write = () => {
   const deleteImage = async () =>{
    try
    {
-    console.log(image.imagename)
-     const {data} = await axios.delete(`${process.env.REACT_APP_BASE_URL}delete/img/${image.imagename}`,{},{withCredentials:true});
+     const {data} = await axios.delete(`${process.env.REACT_APP_BASE_URL}delete/img/${postImage.image}`,{},{withCredentials:true});
      toast.success(data)
-     console.log(data)
-     setImage('');
+     setPostImage('');
    } 
    catch(error){
     toast.error("Error")
@@ -165,10 +166,10 @@ const Write = () => {
       <div className="menu">
         {uploadingImage ? <>uploading your image...</> : ""}
 
-        {image && (
+        {postImage && (
           <div className="item">
             <img
-              src={image.url}
+              src={postImage.imageurl}
               alt="Feature"
               className="postImage"
             />
@@ -193,7 +194,7 @@ const Write = () => {
             style={{ display: "none" }}
             onChange={async (e) => {
               const upldImg = await uploadPostImage(e.target.files[0]);
-              setImage(upldImg);
+              setPostImage(upldImg);
             }}
           />
           <label className="file" htmlFor="file">
@@ -219,7 +220,8 @@ const Write = () => {
                   checked={CatID === category.catid}
                   onChange={(e) => {
                     setCat(category.catid);
-                  }}
+                  }
+                }
                 />
                 <label htmlFor={category.id}>{category.name}</label>
               </div>
