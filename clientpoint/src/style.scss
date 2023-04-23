@@ -1,10 +1,10 @@
 $lightPurple: #7d3e96;
-button.true{
+button.true {
   background: #919191 !important;
   color: antiquewhite !important;
   cursor: none !important;
 }
-button.true:hover{
+button.true:hover {
   background: #919191 !important;
   color: antiquewhite !important;
   cursor: none !important;
@@ -23,7 +23,7 @@ button.true:hover{
     //login and register
     .link {
       text-decoration: none;
-      color:$lightPurple;
+      color: $lightPurple;
     }
     .auth {
       box-shadow: 0px 1px 10px 1px black;
@@ -54,20 +54,20 @@ button.true:hover{
           width: 100%;
           color: $lightPurple;
           cursor: pointer;
-          background-color:white;
+          background-color: white;
           border: 2px solid $lightPurple;
           padding: 10px;
           border-radius: 4px;
           position: relative;
           overflow: hidden;
-          &::after{
-            content: 'Verify';
+          &::after {
+            content: "Verify";
             position: absolute;
-            left:-400px;
+            left: -400px;
             transition: 1s ease all;
           }
 
-          &:hover::after{
+          &:hover::after {
             width: 100%;
             height: 100%;
             left: 0;
@@ -75,15 +75,14 @@ button.true:hover{
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-left:0.5rem;
-           
+            padding-left: 0.5rem;
+
             background-color: $lightPurple;
             color: white;
             transition: 0.9s ease all;
           }
-
         }
-        
+
         span {
           font-size: 12px;
           text-align: center;
@@ -102,9 +101,7 @@ button.true:hover{
         flex-direction: row;
         justify-content: space-between;
       }
-      .logo {
 
-      }
       .links {
         display: flex;
         gap: 10px;
@@ -112,12 +109,12 @@ button.true:hover{
 
         .mobilebtn {
           display: none;
-        } 
-        
+        }
+
         h6 {
           font-size: 16px;
           font-weight: 300;
-          color:white;
+          color: white;
         }
         span {
           cursor: pointer;
@@ -132,12 +129,36 @@ button.true:hover{
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-style: 12px;
+      font-size: 12px; // Changed 'font-style' to 'font-size'
       width: 100%;
+
       img {
         height: 70px;
       }
+
+      .footelink {
+        position: relative; // Removed single quotes around 'relative'
+        border-bottom: none; // Removed single quotes around 'none'
+        color: white; // Removed single quotes around 'white'
+        text-decoration: none; // Removed single quotes around 'none'
+        padding: 4rem 1rem; // Changed '4rem 1rem 4rem 1rem' to '4rem 1rem'
+
+        &::after {
+          content: ""; // Removed single quotes around empty string
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 2px; // Removed single quotes around '3px'
+          border-bottom: 2px double white; // Removed single quotes around '2px double white'
+        }
+
+        &:hover {
+          text-decoration: none; // Removed single quotes around 'none'
+        }
+      }
     }
+
     // home
     .home {
       .posts {
@@ -179,8 +200,6 @@ button.true:hover{
             background: blanchedalmond;
             width: 100%;
           }
-
-          
         }
         .content {
           flex: 3;
@@ -207,12 +226,12 @@ button.true:hover{
             overflow: hidden;
             transition: 1s ease all;
             border-bottom-left-radius: 4px;
-            &::after{
+            &::after {
               position: absolute;
-              content: 'Go To Page';
+              content: "Go To Page";
               width: 100%;
               height: 100%;
-              left:-400px;
+              left: -400px;
               display: flex;
               align-items: center;
               background: white;
@@ -220,10 +239,10 @@ button.true:hover{
               transition: 0.9s ease all;
               text-align: center;
             }
-            &:hover::after{
+            &:hover::after {
               left: 0;
               top: 0;
-              padding-left:0.5rem;
+              padding-left: 0.5rem;
               border: 1px solid white;
               box-shadow: 0 0 9px black;
               color: black;
@@ -231,7 +250,6 @@ button.true:hover{
               color: white;
               transition: 0.9s ease all;
             }
-
           }
         }
       }
@@ -305,7 +323,7 @@ button.true:hover{
         object-fit: cover;
       }
       h2 {
-        color: #68317E;;
+        color: #68317e;
       }
       button {
         width: max-content;
@@ -343,14 +361,13 @@ button.true:hover{
         //   gap: 20px;
         // }
 
-        .editorContainer{
+        .editorContainer {
           height: 300px;
           overflow: scroll;
 
-          .editor{
+          .editor {
             height: 100%;
             border: none;
-
           }
         }
       }
@@ -361,73 +378,177 @@ button.true:hover{
         flex-direction: column;
         gap: 20px;
         width: 100%;
-     
 
-        .item{
+        .item {
           border: 1px solid lightgray;
-          padding: 10px;flex: 1;
+          padding: 10px;
+          flex: 1;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           font-size: 12px;
           color: #555;
 
-          .postImage{
+          .postImage {
             width: 100%;
             background-color: red;
             height: 250px;
             object-fit: cover;
-
           }
 
-          h1{
+          h1 {
             font-style: 20px;
           }
-          .file{
+          .file {
             text-decoration: underline;
             cursor: pointer;
           }
-          .buttons{
+          .buttons {
             display: flex;
             justify-content: space-between;
             width: 100%;
 
-            :first-child{
+            :first-child {
               cursor: pointer;
-              color: $lightPurple; 
+              color: $lightPurple;
               background-color: white;
-              border: 1px solid $lightPurple; 
+              border: 1px solid $lightPurple;
               padding: 3px 5px;
               transition: all 1s ease-in-out;
 
-              &:hover{
+              &:hover {
                 color: white;
                 background-color: $lightPurple;
               }
-              
             }
 
-            :last-child{
+            :last-child {
               cursor: pointer;
               color: white;
-              background-color: $lightPurple;;
-              border: 1px solid $lightPurple; 
+              background-color: $lightPurple;
+              border: 1px solid $lightPurple;
               padding: 3px 5px;
-              &:hover{
+              &:hover {
                 color: $lightPurple;
                 background-color: white;
               }
             }
-
           }
-          .cat{
+          .cat {
             display: flex;
-             align-items: center;
-             gap: 2px;
-             color: $lightPurple;
+            align-items: center;
+            gap: 2px;
+            color: $lightPurple;
           }
         }
       }
+    }
+
+    .catUpdate {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 90%;
+      padding: 3rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      ul {
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: stretch;
+        font-weight: 800;
+      }
+    }
+
+    .category {
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 8px;
+
+        padding: 20px;
+        width: 90%;
+        margin: 0 auto;
+
+        fieldset {
+          margin: 0;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          padding: 2rem 0rem 3rem 4rem;
+          width: 90%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4rem;
+
+          legend {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: #7d3e96;
+          }
+        }
+
+        button[type="submit"] {
+          background-color: #7d3e96;
+          color: #fff;
+          width: 250px;
+          border: none;
+          border-radius: 4px;
+          padding: 10px 20px;
+          margin-top: 20px;
+          cursor: pointer;
+          font-size: 1rem;
+          transition: background-color 0.3s ease-in-out;
+
+          &:hover {
+            background-color: #6b3685;
+          }
+        }
+      }
+    }
+  }
+
+  .btncancel {
+    width: max-content;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid red;
+    color: $lightPurple;
+    width: 40%;
+    overflow: hidden;
+    transition: 1s ease all;
+    border-bottom-left-radius: 4px;
+    &::after {
+      position: absolute;
+      content: "Back to Category";
+      width: 100%;
+      height: 100%;
+      left: -400px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      color: $lightPurple;
+      transition: 0.9s ease all;
+      text-align: center;
+    }
+    &:hover::after {
+      left: 0;
+      top: 0;
+      padding-left: 0.5rem;
+      border: 1px solid white;
+      box-shadow: 0 0 9px black;
+      color: black;
+      background-color: $lightPurple;
+      color: white;
+      transition: 0.9s ease all;
     }
   }
 }

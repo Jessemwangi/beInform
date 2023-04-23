@@ -129,6 +129,14 @@ console.log(state)
     console.log(error.message)
    }
   }
+  useEffect(() =>{
+    if (title.length > 10) {
+      setErrorState(false);
+    } else {
+      setErrorState(true);
+    }
+  },[title.length])
+
   return (
     <div className="add">
        <ToastContainer />
@@ -141,11 +149,6 @@ console.log(state)
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
-            if (title.length > 10) {
-              setErrorState(false);
-            } else {
-              setErrorState(true);
-            }
             setBtnDisable(()=>errorState)
           }}
         />

@@ -18,7 +18,8 @@ import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
 import NotFound from "./pages/NotFound";
 import BackToTop from "./pages/BackToTop";
-
+import Category from'./pages/Category.jsx';
+import ModCategory from'./pages/ModCategory.jsx';
 
 const Layout = () => {
   return (
@@ -41,9 +42,15 @@ const router = createBrowserRouter(
       <Route path="/post/:id" element={<Single />}>
         View post
       </Route>
+      <Route path="/cat" element={<ModCategory />}>
+        View Test
+      </Route>
       <Route path="/login" element={<Login />}>
         View login
       </Route>
+      <Route path="/category" element={<Category/>}>
+        category </Route>
+      
       <Route path="*" element={<NotFound />}>
         View login
       </Route>
