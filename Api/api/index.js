@@ -47,7 +47,7 @@ app.use(
 
 
 
-app.get('/api', (req, res) => res.send('Hello World!'))
+app.use('/api', (req, res) => res.send('Hello World!'))
 
 // const generateUniqueKey = (file) => {
 //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
