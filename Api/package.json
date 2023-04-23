@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "npm run build && node dist/index.js",
+    "build": "rm -rf dist && mkdir dist && cp -R ./Api/. ./dist/ && echo 'Build complete.'"
   },
   "keywords": [],
   "author": "",
