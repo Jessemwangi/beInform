@@ -11,6 +11,7 @@ const authRoutes = require("../routes/auth");
 const catRoutes = require("../routes/cat");
 const postGresRoute = require("../routes/postgres");
 const { uploadFile, deleteFile } = require( "../utilities/utilities" );
+const getTest = require( "../controllers/postgreTestController" );
 
 
 // const {
@@ -47,7 +48,7 @@ app.use(
 
 
 
-app.use('/api', (req, res) => res.send('Hello World!'))
+app.use('/api',getTest)
 
 // const generateUniqueKey = (file) => {
 //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
