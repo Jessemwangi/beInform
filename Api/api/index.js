@@ -1,16 +1,16 @@
 "use strict";
-const { port, host } = require("./serverConfig.json");
+const { port, host } = require("../serverConfig.json");
 const express = require("express");
 const cookieparser = require("cookie-parser");
 const multer = require("multer");
 const cors = require("cors");
 
-const postRoutes = require("./routes/posts");
-const userRoutes = require("./routes/users");
-const authRoutes = require("./routes/auth");
-const catRoutes = require("./routes/cat");
-const postGresRoute = require("./routes/postgres");
-const { uploadFile, deleteFile } = require( "./utilities/utilities" );
+const postRoutes = require("../routes/posts");
+const userRoutes = require("../routes/users");
+const authRoutes = require("../routes/auth");
+const catRoutes = require("../routes/cat");
+const postGresRoute = require("../routes/postgres");
+const { uploadFile, deleteFile } = require( "../utilities/utilities" );
 
 
 // const {
