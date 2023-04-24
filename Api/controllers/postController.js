@@ -27,12 +27,7 @@ const getPosts =  (req, res) => {
               Returndata.push({...post, imageurl:imageurl})
             }
 // console.log(Returndata);
-        res.cookie("home_token","token cookies view",{
-          httpOnly:true,
-          secure:true,
-          sameSite: 'none'
-      
-      }).status(200).json(Returndata);
+        res.status(200).json(Returndata);
     });
   } catch (error) {
     res.status(500).json(error);

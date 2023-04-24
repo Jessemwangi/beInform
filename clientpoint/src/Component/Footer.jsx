@@ -1,12 +1,21 @@
 import React from "react";
 import logo from "../Assets/Logo.png";
+import { Link as Rink} from "react-router-dom";
 import { Link } from "@mui/material";
 
 const Footer = () => {
   return (
     <footer>
       <img src={logo} alt="Logo" />
-      <span style={{ color: "white" }}>Inspire and write; </span>
+      <span style={{ color: "white" }}>Inspire and write; <br />
+      <Rink
+            style={{color:"white","textDecoration":"none"
+           ,"borderBottom":"double 2px white","padding":"0.5rem 2rem"
+          }}
+            to={`/category`}
+        >Add Category
+          </Rink>
+        </span>
       <fieldset
         style={{
           
