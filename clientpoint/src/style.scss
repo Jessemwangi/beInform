@@ -137,24 +137,35 @@ button.true:hover {
       }
 
       .footelink {
-        position: relative; // Removed single quotes around 'relative'
-        border-bottom: none; // Removed single quotes around 'none'
+        position:relative;
+        border-bottom:#fff double 2px; // Removed single quotes around 'none'
         color: white; // Removed single quotes around 'white'
         text-decoration: none; // Removed single quotes around 'none'
-        padding: 4rem 1rem; // Changed '4rem 1rem 4rem 1rem' to '4rem 1rem'
+        overflow: hidden;
+        padding: 0.5rem 2rem;
+        width: 100%;
+        border-radius: 7px 7px 0 0;
 
         &::after {
-          content: ""; // Removed single quotes around empty string
+          content: "Visit Profile"; // Removed single quotes around empty string
           position: absolute;
-          bottom: 0;
+          bottom: -80px;
           left: 0;
-          right: 0;
-          height: 2px; // Removed single quotes around '3px'
-          border-bottom: 2px double white; // Removed single quotes around '2px double white'
-        }
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          width: 100%;
+          transition: all 0.9s ease-in-out;
+          background: white;
+          color: $lightPurple;
+         }
 
-        &:hover {
-          text-decoration: none; // Removed single quotes around 'none'
+        &:hover::after {
+          bottom: 0;
+          box-shadow: 0 0 9px black;
+          color: black;
+          transition: 0.9s ease all;
         }
       }
     }
