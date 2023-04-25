@@ -1,5 +1,7 @@
 import "./App.css";
 import "./style.scss";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Outlet,
   Route,
@@ -21,10 +23,13 @@ import BackToTop from "./pages/BackToTop";
 import Category from'./pages/Category.jsx';
 import ModCategory from'./pages/ModCategory.jsx';
 
+
 const Layout = () => {
+
   return (
     <>
       <Navbar></Navbar>
+      <ToastContainer />
       <Outlet />
       <Footer />
     </>

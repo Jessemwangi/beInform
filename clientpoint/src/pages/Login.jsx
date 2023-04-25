@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/authContext";
 import {
   IconButton,
@@ -11,8 +12,6 @@ import {
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
-import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const initial = {
@@ -39,16 +38,19 @@ const Login = () => {
     e.preventDefault();
     if(inputs.password ==='' || inputs.username ===''){
       setErr('wrong authenticatication inputs');
+      toast.error('wrong authenticatication inputs')
       return false;
     }
     try {
       await login(inputs);
-
+toast.success(`Nice to see you again ${inputs.username}`)
   navigate("/");
     } catch (error) {
       setErr('wrong username or password');
+      toast.error('wrong username or password')
     }
   };
+
   return (
     <div className="auth">
       <div

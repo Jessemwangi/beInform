@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const initial = {
@@ -25,6 +26,7 @@ const Register = () => {
       inputs.email === ""
     ) {
       setErr("wrong registrations inputs");
+      toast.error("wrong registrations inputs")
       return false;
     }
     try {
@@ -33,12 +35,15 @@ const Register = () => {
         inputs,{withCredentials:true}
       );
       if (data) {
+        toast.success(`Hi ${inputs.username}, sign in to continue`)
         navigate("/login");
       } else {
-        setErr("Authentication failed");
+        setErr("Registration failed");
+        toast.error("failed to create Account")
       }
     } catch (error) {
       setErr(error.message);
+      toast.error(error.message)
     }
   };
 

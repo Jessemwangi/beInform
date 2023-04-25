@@ -6,7 +6,6 @@ import moment from 'moment';
 import convertToHtml from "../Functions/functions";
 import { Box, LinearProgress } from "@mui/material";
 
-
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const cat = useLocation().search

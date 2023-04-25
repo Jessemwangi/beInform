@@ -8,8 +8,7 @@ import "react-quill/dist/quill.snow.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const Write = () => {
   const state = useLocation().state;
@@ -105,14 +104,14 @@ const Write = () => {
       };
   
       if (response.code === 200) {
-        toast.success(response.message,options);
+        toast.success(response,options);
         navigate("/")
       } else {
-        toast.error(response.message,options);
+        toast.error(response,options);
       }
   
     } catch (error) {
-      toast.error("an error has occured",options);
+      toast.error("An error has occured",options);
     }
   };
   
@@ -137,7 +136,6 @@ const Write = () => {
 
   return (
     <div className="add">
-       <ToastContainer />
       <div className="content">
         <TextField
           error={errorState}

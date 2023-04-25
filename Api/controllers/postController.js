@@ -159,7 +159,7 @@ const putPost = (req, res) => {
     db.query(q, params, (err, result) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: "Database error" });
+        return res.status(500).json(err);
       }
       return res.status(200).json("post updated successful");
     });
