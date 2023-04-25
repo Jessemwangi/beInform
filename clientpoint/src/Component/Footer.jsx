@@ -7,7 +7,8 @@ const Footer = () => {
   return (
     <footer>
       <img src={logo} alt="Logo" />
-      <span style={{ color: "white" }}>Inspire and write; <br />
+      <span style={{ color: "white","textAlign":"center" }}><p> Inspire and write;</p>
+        <br />
       <Rink
             style={{color:"white","textDecoration":"none"
            ,"borderBottom":"double 2px white","padding":"0.5rem 2rem"

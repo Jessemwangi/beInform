@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 const Category = () => {
-  const [cat, setCat] = useState({});
+  const [cat, setCat] = useState({name:'',description:''});
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const [err, setErr] = useState(null);
@@ -38,7 +38,8 @@ const Category = () => {
   if (categories.length >= 6) {
     return (
       <div className="catUpdate">
-        <h1> Can not add more category</h1>
+        <h2> Oops! My apologies, the categories are full and you cannot add any more.
+             You could try renaming the existing ones instead.</h2>
 
         <hr />
         <h2>Modify Existing Category Name</h2>
@@ -70,6 +71,7 @@ const Category = () => {
     }
     console.log(err);
   };
+  console.log(cat)
   return (
     <Container className="category">
       <form onSubmit={submitCategory}>
@@ -77,12 +79,14 @@ const Category = () => {
           <legend>Create a new category..</legend>
           <TextField
             id="outlined-basic"
-            label="Category name required *"
+            label={`Category name,  ${20 - cat.name.length} char's rem.*`}
             variant="outlined"
+            maxLength={20} 
             name="name"
+            value={cat.name}
             fullWidth
             onChange={(e) => {
-              setCat(() => ({ ...cat, [e.target.name]: e.target.value }));
+              setCat(() => ({ ...cat, [e.target.name]: e.target.value.slice(0, 20)}));
             }}
           />
           <TextField
