@@ -120,8 +120,8 @@ transition: 0.7s ease all;
 
     .mainnav {
         display: flex;
-        justify-content: center;
-        flex-direction: column;
+        justify-content: space-evenly;
+        flex-direction: row;
         align-items: center;
         background-color: white;
         width: 88%;
@@ -153,7 +153,8 @@ transition: 0.7s ease all;
     .mobilebtn {
         display: block;
         border: none;
-        padding: 1rem;
+        padding-top: 1rem;
+        background: white;
     }
 
     .responsive {
@@ -194,7 +195,7 @@ transition: 0.7s ease all;
     }
 
     span.MuiSvgIcon-_root>svg {
-        width: 100px;
+        width: 80px;
         height: fit-content;
         transition: 1s all;
         box-shadow: 0 0 10px black;
@@ -212,6 +213,15 @@ transition: 0.7s ease all;
         transition: 0.8s all;
         box-shadow: 0 0 10px rgb(207, 8, 8);
         border: rgb(148, 75, 75) solid 2px;
+    }
+    .actionArea{
+
+    }
+    .userDisplay {
+        color: #68317E;
+    }
+    .write{
+        background-color: white;
     }
 .home{
     flex-direction: column;
