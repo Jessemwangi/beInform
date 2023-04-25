@@ -21,7 +21,7 @@ const getPosts = async () => {
 try {
   setIsLoading(true)
 	  const {data} = await axios.get(url, { withCredentials: true });
-console.log(data)
+
     setIsLoading(false)
     if (data ){
       setPosts(data);

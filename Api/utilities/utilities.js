@@ -63,7 +63,7 @@ const getImageUrl =async (name)=>{
    
     const command2 = new GetObjectCommand({Bucket: Storage,Key:name});
 const imageUrl = await getSignedUrl(s3, command2, { expiresIn: 3600 });
- console.log(imageUrl)
+
     return imageUrl;
 }
 

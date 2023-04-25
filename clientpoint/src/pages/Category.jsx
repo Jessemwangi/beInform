@@ -71,7 +71,7 @@ const Category = () => {
     }
     console.log(err);
   };
-  console.log(cat)
+ 
   return (
     <Container className="category">
       <form onSubmit={submitCategory}>

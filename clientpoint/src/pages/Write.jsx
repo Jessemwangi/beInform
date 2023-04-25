@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Write = () => {
   const state = useLocation().state;
-console.log(state)
   const [value, setValue] = useState(state?.description || "");
   const [title, setTitle] = useState(state?.title || "");
   const [CatID, setCat] = useState(state?.catid || "");
@@ -126,7 +125,6 @@ console.log(state)
    } 
    catch(error){
     toast.error("Error")
-    console.log(error.message)
    }
   }
   useEffect(() =>{

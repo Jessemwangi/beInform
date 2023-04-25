@@ -1,10 +1,10 @@
 import { Container, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ModCategory = () => {
+  const navigate =useNavigate();
   const location = useLocation()
   const search = new URLSearchParams(location.search)
   const catId = search.get('catId')
@@ -15,8 +15,8 @@ const ModCategory = () => {
 const submitCategory =async () =>{
   try {
       const url = `${process.env.REACT_APP_BASE_URL}cat`
-      const {data} = await axios.put(url,cat, { withCredentials: true })
-      console.log(data)
+     await axios.put(url,cat, { withCredentials: true })
+     navigate('/')
   } catch (error) {
       console.log(error)
   }
