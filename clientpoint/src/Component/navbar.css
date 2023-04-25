@@ -237,4 +237,8 @@ transition: 0.7s ease all;
     .app .container .single {
 flex-direction: column;
     }
+    footer{
+        flex-direction: column;
+        gap:1.5rem;
+    }
 }
