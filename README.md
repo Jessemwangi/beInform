@@ -1,13 +1,14 @@
 ## blogger
 
-Blogger is a socila media application that allows you to create and account, write a blog, upload image and publish you blog based on blog category,eg Science, technology, arts etc.
-user are able to modify there own project that they themselve wrote 
+Beinformed is a social media application that allows you to create an account, write updates, upload images, and publish your write-ups based on the category they belong to, such as Science, Technology, Arts, etc. Users are able to modify their own published write-ups.
+
+Enjoy being informed or sharing information....
 
 #### Technology
         - node express
-        - crypto
         - React
-        - Posgress Sql
+        - AWS S3
+        - Posgress Sql / mysql
         - Html
         - SCSS
 #### Architecture 
