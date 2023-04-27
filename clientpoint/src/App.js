@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import BackToTop from "./pages/BackToTop";
 import Category from'./pages/Category.jsx';
 import ModCategory from'./pages/ModCategory.jsx';
+import HowTo from "./pages/HowTo";
 
 
 const Layout = () => {
@@ -51,6 +52,9 @@ const router = createBrowserRouter(
         View Test
       </Route>
       <Route path="/login" element={<Login />}>
+        View login
+      </Route>
+      <Route path="/help" element={<HowTo />}>
         View login
       </Route>
       <Route path="/category" element={<Category/>}>

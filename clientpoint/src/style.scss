@@ -562,4 +562,22 @@ button.true:hover {
       transition: 0.9s ease all;
     }
   }
+  .helpAccordion{
+    padding: 0;
+    margin: 0;
+  }
+  .helpAccordion.expanded {
+    background-color: #f0f0f0;
+  }
+  .help-typography {
+    color: #7d3e96;
+    font-weight: bolder;
+    padding: 0 4rem;
+  }
+  
+  .help-typography.expanded {
+  color: white;
+    background-color: #7d3e96;
+    border-radius: 6px;
+  }
 }

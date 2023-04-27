@@ -94,6 +94,7 @@ const Category = () => {
             label="Category description *"
             variant="outlined"
             name="description"
+            multiline
             fullWidth
             onChange={(e) => {
               setCat(() => ({ ...cat, [e.target.name]: e.target.value }));

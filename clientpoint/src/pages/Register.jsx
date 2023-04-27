@@ -71,7 +71,7 @@ const Register = () => {
             required
             onChange={handleChange}
           />
-          <button onClick={registerUser}>Login</button>
+          <button className="loginBtn" onClick={registerUser}>Login</button>
           {err && <p>{err}</p>}
           <span>
             {" "}
