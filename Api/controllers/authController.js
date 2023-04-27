@@ -58,7 +58,7 @@ const login = (req, res) => {
         // Checking for matching hashed passsword
         const isValidPassword = bcrypt.compareSync(req.body.password, data.rows[0].password);
         if (!isValidPassword){ return res.status(403).json('Wrong username or password');}
-    const token = jwt.sign({id:data.rows[0].id},"s3cr3t");
+    const token = jwt.sign({id:data.rows[0].id},process.env.API_KEY);
     console.log(token)
     const {password,...other} = data.rows[0];
     

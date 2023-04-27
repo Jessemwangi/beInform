@@ -2,49 +2,66 @@ import { Container, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ModCategory = () => {
   const navigate =useNavigate();
   const location = useLocation()
-  const search = new URLSearchParams(location.search)
-  const catId = search.get('catId')
-  const name = search.get('name')
+  const {state} = location
+  const [err, setErr] = useState(null);
+  const [cat,setCat] = useState({...state})
+console.log(cat)
 
-  const [cat,setCat] = useState({catId,name})
-
-const submitCategory =async () =>{
+const submitCategory =async (e) =>{
+  e.preventDefault();
   try {
-      const url = `${process.env.REACT_APP_BASE_URL}cat`
-     await axios.put(url,cat, { withCredentials: true })
-     navigate('/')
+      const url = `${process.env.REACT_APP_BASE_URL}cat/${cat.catid}`
+    const {data} = await axios.put(url,cat, { withCredentials: true })
+     console.log(url,data)
+     toast.success(data);
+ navigate('/')
   } catch (error) {
       console.log(error)
+      toast.error(error.message)
+      setErr(error.message)
+      return
   }
       }
+      console.log(cat)
   return (
-    <Container className='category'>
-            <form onSubmit={submitCategory}>
-  <fieldset >
-    <legend>Update Category</legend>
-    <TextField
-              id="outlined-basic"
-              label="category name required *"
-              variant="outlined"
-              fullWidth
-              value={cat.name}
-              onChange={
-                (e)=>{
-                setCat({...cat,name:e.target.value})
-            }
-            }
-    />
-    <button type='submit' >Update</button>
-    </fieldset>
+    <Container className="category">
+    <form onSubmit={submitCategory}>
+      <fieldset>
+        <legend>Create a new category..</legend>
+        <TextField
+          id="outlined-basic"
+          label={`Category name,  ${20 - cat.name.length} char's rem.*`}
+          variant="outlined"
+          maxLength={20} 
+          name="name"
+          value={cat.name}
+          fullWidth
+          onChange={(e) => {
+            setCat(() => ({ ...cat, [e.target.name]: e.target.value.slice(0, 20)}));
+          }}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Category description *"
+          variant="outlined"
+          name="description"
+          multiline
+          fullWidth
+          onChange={(e) => {
+            setCat(() => ({ ...cat, [e.target.name]: e.target.value }));
+          }}
+          value={cat.description}
+        />
+        <button type="submit">save</button>
+      </fieldset>
     </form>
-    <div style={{"paddingTop":"3rem", "display":"flex", "width":"90%", "flexDirection":"row-reverse"}}>
-      <button className="btncancel">Cancel</button>
-      </div>
-        </Container>
+    {err && <p>{err}</p>}
+  </Container>
   );
 };
 

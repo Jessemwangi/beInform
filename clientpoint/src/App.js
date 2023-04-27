@@ -49,7 +49,7 @@ const router = createBrowserRouter(
         View post
       </Route>
       <Route path="/cat" element={<ModCategory />}>
-        View Test
+        modify category
       </Route>
       <Route path="/login" element={<Login />}>
         View login

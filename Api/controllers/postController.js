@@ -41,7 +41,7 @@ const addPost =  (req, res) => {
     const token = req.cookies.access_token;
     console.log("token ....", token)
     if (!token) return res.status(401).json("Not Authenticated!");
-    jwt.verify(token, "s3cr3t", (err, userInfo) => {
+    jwt.verify(token, process.env.API_KEY, (err, userInfo) => {
       if (err){
 console.log(err)
       return res.status(403).json("Authentication token Not Valid");
@@ -126,7 +126,7 @@ const deleteData = (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not Authenticated!");
 
-  jwt.verify(token, "s3cr3t", (err, userInfo) => {
+  jwt.verify(token, process.env.API_KEY, (err, userInfo) => {
     if (err) return res.status(403).json("Authentication token Not Valid!");
 
     const q = "delete from posts where id = $1 and uid = $2";
@@ -144,7 +144,7 @@ const putPost = (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not Authenticated!");
 
-  jwt.verify(token, "s3cr3t", (err, userInfo) => {
+  jwt.verify(token, process.env.API_KEY, (err, userInfo) => {
     if (err) return res.status(403).json("Authentication token Not Valid!");
     const q = "UPDATE posts SET title = $1, description = $2, image = $3, CatID = $4 WHERE id = $5 AND uid = $6";
     const params = [

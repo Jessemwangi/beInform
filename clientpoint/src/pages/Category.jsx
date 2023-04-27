@@ -46,8 +46,10 @@ const Category = () => {
         <ul style={{ listStyle: "none", display: "fl" }}>
           {categories.map((cat) => (
             <li key={cat.catid}>
-              <Link
-                to={`/cat?name=${cat.name}&catId=${cat.catid}`}
+              <Link 
+                to={ '/cat'}
+                  state ={{ name: cat.name, catid: cat.catid, description: cat.description }}
+                
                 className="link "
               >
                 <p>{cat.name}</p>

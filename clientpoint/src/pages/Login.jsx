@@ -46,8 +46,9 @@ const Login = () => {
 toast.success(`Nice to see you again ${inputs.username}`)
   navigate("/");
     } catch (error) {
-      setErr('wrong username or password');
-      toast.error('wrong username or password')
+      setErr('Login Faile, Either wrong username or password');
+      toast.error(error.message)
+      return
     }
   };
 
