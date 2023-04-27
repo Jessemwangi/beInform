@@ -174,7 +174,7 @@ const Write = () => {
             />
 <div style={{"display":"flex", "flexDirection":"row-reverse"}}>
 
-            <Button style={{"background":"red", "marginTop":"1rem"}} onClick={deleteImage}>Delete image</Button>
+            <Button style={{"background":"black","color":"white", "marginTop":"1rem"}} onClick={deleteImage}>Delete image</Button>
 </div>
           </div>
         )}
