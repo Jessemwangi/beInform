@@ -12,9 +12,9 @@ const getPosts =  (req, res) => {
     let q = "";
     cat
       ? (q =
-          "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where c.name = $1 order by p.id Desc")
+          `select p.id,p.title,p.description,p.image,p.update_on,p.uid,p.cat_id,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.cat_id = c.catid join users u on u.id=p.uid where c.name = $1 order by p.id Desc`)
       : (q =
-          "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid order by p.id Desc");
+          `select p.id,p.title,p.description,p.image,p.update_on,p.uid,p.cat_id,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.cat_id = c.catId join users u on u.id=p.uid order by p.id Desc`);
           psPool.query(q, cat ? [cat] : '', async (err, data) => {
             if(err){
               console.log(err)
@@ -103,7 +103,7 @@ console.log(err)
 const getPost = (req, res) => {
   try {
     const q =
-    "select p.id,p.title,p.description,p.image,p.UpdateOn,p.uid,p.CatID,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.CatID = c.catId join users u on u.id=p.uid where p.id = $1 order by p.id Desc";
+    `select p.id,p.title,p.description,p.image,p.update_on,p.uid,p.cat_id,p.datecreated, u.id as userID,u.username,u.image as userImage,c.catId,c.name as category from posts p join category c on p.cat_id = c.catId join users u on u.id=p.uid where p.id = $1 order by p.id Desc`;
   db.query(q, [req.params.id], async (err, data) => {
     if (err){
 console.log(err)
