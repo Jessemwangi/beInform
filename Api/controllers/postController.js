@@ -47,7 +47,7 @@ console.log(err)
       return res.status(403).json("Authentication token Not Valid");
       }
       console.log("userInfo... ",userInfo)
-      const q = "INSERT INTO posts (title, description, image, CatID, uid) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+      const q = "INSERT INTO posts (title, description, image, cat_id, uid) VALUES ($1, $2, $3, $4, $5) RETURNING id";
       const q2 = "INSERT INTO postsStatus (postId, statusId, createdBy, publishedBy) VALUES ($1, $2, $3, $4)";
 
       const postParams = [
