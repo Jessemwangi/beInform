@@ -96,7 +96,7 @@ const MAX_CHARS = 4225;
       toast.error("Description exceeds maximum length of 4225 characters", options);
       return;
     }
-    
+
     try {
       const updateData = {
         title,
@@ -186,6 +186,7 @@ const MAX_CHARS = 4225;
             value={value}
             onChange={handleEditorChange}
           />
+        </div>
           <div className="char-counter" style={{ 
   marginTop: '0.5rem', 
   color: exceededLimit ? 'red' : 'inherit',
@@ -194,7 +195,6 @@ const MAX_CHARS = 4225;
 }}>
   {charCount}/{MAX_CHARS} characters
 </div>
-        </div>
       </div>
       <div className="menu">
         {uploadingImage ? <>uploading your image...</> : ""}
