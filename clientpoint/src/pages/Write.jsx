@@ -10,6 +10,8 @@ import { AuthContext } from "../context/authContext";
 
 import { toast } from "react-toastify";
 
+
+
 const Write = () => {
   const state = useLocation().state;
   const [value, setValue] = useState(state?.description || "");
@@ -26,6 +28,10 @@ const Write = () => {
   const [btnDisable, setBtnDisable] = useState(()=>errorState);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [charCount, setCharCount] = useState(0);
+const [exceededLimit, setExceededLimit] = useState(false);
+const MAX_CHARS = 4225;
   
   const options = {
     position: 'top-right',
@@ -69,14 +75,34 @@ const Write = () => {
     fetchCats();
   }, []);
 
+
+  const handleEditorChange = (content) => {
+    const textOnly = content.replace(/<[^>]*>/g, '');
+    const count = textOnly.length;
+    
+    setCharCount(count);
+    
+    if (count <= MAX_CHARS) {
+      setValue(content);
+      setExceededLimit(false);
+    } else {
+      setExceededLimit(true);
+    }
+  };
+
   const handleSubmit = async (e,status_Id) => {
     e.preventDefault();
+    if (exceededLimit) {
+      toast.error("Description exceeds maximum length of 4225 characters", options);
+      return;
+    }
+    
     try {
       const updateData = {
         title,
         description: value,
         CatID,
-        image: postImage ? postImage.image : state?.image,
+        image: postImage ? postImage.image : (state?.image || "noImage"),
         UpdateOn: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
         statusId:status_Id,
       };
@@ -85,7 +111,7 @@ const Write = () => {
         title,
         description: value,
         CatID,
-        image: postImage ? postImage.image : "",
+        image: postImage ? postImage.image : "noImage",
         statusId:status_Id,
         publishedOn:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
       };
@@ -158,8 +184,16 @@ const Write = () => {
             className="editor"
             theme="snow"
             value={value}
-            onChange={setValue}
+            onChange={handleEditorChange}
           />
+          <div className="char-counter" style={{ 
+  marginTop: '0.5rem', 
+  color: exceededLimit ? 'red' : 'inherit',
+  display: 'flex',
+  justifyContent: 'flex-end'
+}}>
+  {charCount}/{MAX_CHARS} characters
+</div>
         </div>
       </div>
       <div className="menu">
