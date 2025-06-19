@@ -50,7 +50,7 @@ const Navbar = () => {
           {/* Logo/Brand area - you can add logo here */}
           <div className="brand">
             <NavLink to="/" className="brand-link">
-              <h3>Your Blog</h3>
+              <h3>✍️💥🤯🎯</h3>
             </NavLink>
           </div>
 
