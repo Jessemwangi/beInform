@@ -15,7 +15,7 @@ useEffect(() =>{
         const {data} = await  axios.get(url, {
             withCredentials: true,
           })
-        console.log(data)
+        
         if (data){
             setcategories(data)
         }

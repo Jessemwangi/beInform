@@ -19,7 +19,7 @@ const Category = () => {
       });
       setCategories(res.data);
     } catch (error) {
-      console.log(error);
+    ;
       setErr(error.message);
     }
   };
@@ -68,10 +68,10 @@ const Category = () => {
       await axios.post(url, cat, { withCredentials: true });
       navigate("/");
     } catch (error) {
-      console.log(error);
+     
       setErr(error.message);
     }
-    console.log(err);
+    
   };
  
   return (
