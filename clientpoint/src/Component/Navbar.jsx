@@ -1,94 +1,169 @@
 import React, { useContext, useEffect, useState } from "react";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import "./navbar.css";
 
 const Navbar = () => {
-  const [mobilemenucss, setMobilemenucss] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { currentUser, logout } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}cat/all`, { withCredentials: true });
+        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}cat/all`, { 
+          withCredentials: true 
+        });
         setCategories(res.data);
       } catch (error) {
+        console.error("Error fetching categories:", error);
       }
     };
     getPosts();
   }, []);
 
   useEffect(() => {
-    mobilemenucss !== "responsive"
-      ? (document.body.style.overflow = "")
-      : (document.body.style.overflow = "hidden");
-  }, [mobilemenucss]);
+    // Prevent body scroll when mobile menu is open
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    
+    // Cleanup function
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
-  const showMobileMennu = () => {
-    mobilemenucss !== "responsive"
-      ? setMobilemenucss("responsive")
-      : setMobilemenucss("");
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(prev => !prev);
   };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header id="back-to-top-anchor">
-      <nav className={`mainnav ${mobilemenucss}`}>
-        <button className="mobilebtn" onClick={showMobileMennu}>
-          <span className="MuiSvgIcon-_root">
-            <MenuIcon
-              fontSize="large"
-              color="info"
-              focusable="true"
-              titleAccess={
-                mobilemenucss !== "responsive" ? "Open Menu" : "Collapse Menu "
-              }
-              shapeRendering="geometricPrecision"
-            />
-          </span>
-        </button>
-        <ul className="menuUl">
-        <li className="mainMenuList" >
-              <NavLink
-                className="link hundredpx"
-                to={`/`}
-                
-              >
+    <>
+      <header id="back-to-top-anchor">
+        <nav className="mainnav">
+          {/* Logo/Brand area - you can add logo here */}
+          <div className="brand">
+            <NavLink to="/" className="brand-link">
+              <h3>Your Blog</h3>
+            </NavLink>
+          </div>
+
+          {/* Desktop Menu */}
+          <ul className="menuUl desktop-menu">
+            <li className="mainMenuList">
+              <NavLink className="link" to="/">
                 <h6>Home</h6>
               </NavLink>
             </li>
-          {categories && categories.map((cat) => (
-            <li className="mainMenuList" key={cat.name}>
-              <NavLink
-                className="link hundredpx"
-                to={`/?cat=${cat.name}`}
-                key={cat.catid}
+            {categories && categories.map((cat) => (
+              <li className="mainMenuList" key={cat.name}>
+                <NavLink
+                  className="link"
+                  to={`/?cat=${cat.name}`}
+                >
+                  <h6>{cat.name}</h6>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop Action Area */}
+          <div className="actionArea desktop-action">
+            {currentUser ? (
+              <div className="user-info">
+                <span className="user-greeting">Hi {currentUser?.username}</span>
+                <button onClick={logout} className="logout-btn">
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <NavLink className="login-btn" to="/login">
+                Login
+              </NavLink>
+            )}
+            <NavLink className="write-btn" to="/write">
+              Write
+            </NavLink>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="mobile-menu-btn" 
+            onClick={toggleMobileMenu}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </nav>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-menu-content">
+          <ul className="mobile-menuUl">
+            <li className="mobile-menuItem">
+              <NavLink 
+                className="mobile-link" 
+                to="/" 
+                onClick={closeMobileMenu}
               >
-                <h6>{cat.name}</h6>
+                Home
               </NavLink>
             </li>
-          ))}
-        </ul>
-        <div className="actionArea"> 
-        {currentUser ? (
-          <span onClick={logout} className="writeD userDisplay">
-            <small>Hi {currentUser?.username}</small> 
-           <span>logout{" "}</span> 
-          </span>
-        ) : (
-          <NavLink className="write userDisplay" to="./login">
-            Login
-          </NavLink>
-        )}{" "}
-        <span></span>
-        <span >
-          <NavLink className="write userDisplay" to="/write">
-            write
-          </NavLink>
-        </span>
+            {categories && categories.map((cat) => (
+              <li className="mobile-menuItem" key={cat.name}>
+                <NavLink
+                  className="mobile-link"
+                  to={`/?cat=${cat.name}`}
+                  onClick={closeMobileMenu}
+                >
+                  {cat.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          {/* Mobile Action Area */}
+          <div className="mobile-actions">
+            {currentUser ? (
+              <div className="mobile-user-info">
+                <span className="mobile-user-greeting">Hi {currentUser?.username}</span>
+                <button 
+                  onClick={() => {
+                    logout();
+                    closeMobileMenu();
+                  }} 
+                  className="mobile-logout-btn"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <NavLink 
+                className="mobile-login-btn" 
+                to="/login"
+                onClick={closeMobileMenu}
+              >
+                Login
+              </NavLink>
+            )}
+            <NavLink 
+              className="mobile-write-btn" 
+              to="/write"
+              onClick={closeMobileMenu}
+            >
+              Write
+            </NavLink>
+          </div>
         </div>
-      </nav>
-    </header>
+      </div>
+    </>
   );
 };
 
